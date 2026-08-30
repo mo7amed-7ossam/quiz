@@ -391,42 +391,86 @@ export const QuestionBankView: React.FC<QuestionBankViewProps> = ({ onFormStateC
 
       {/* Import File Modal */}
       {isImportModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4">
-          <div className="bg-white rounded-2xl w-full max-w-md p-6 shadow-2xl text-right">
-            <div className="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
-              <h3 className="font-bold text-base text-slate-900">استيراد بنك الأسئلة</h3>
-              <button
-                onClick={() => setIsImportModalOpen(false)}
-                className="text-slate-400 hover:text-slate-600 p-1"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            <div className="border-2 border-dashed border-slate-200 rounded-2xl p-8 text-center bg-slate-50/50 hover:bg-slate-50 transition-colors cursor-pointer mb-4">
-              <FileUp className="w-8 h-8 text-teal-600 mx-auto mb-2" />
-              <p className="text-xs font-bold text-slate-700 mb-1">
-                اسحب ملف Excel أو CSV هنا، أو اضغط للاستعراض
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 font-cairo">
+          <div
+            className="bg-white rounded-3xl w-full max-w-xl p-6 sm:p-8 shadow-2xl text-right animate-in fade-in zoom-in-95 duration-150"
+            dir="rtl"
+          >
+            {/* 1. Modal Header */}
+            <div className="mb-4">
+              <h3 className="text-lg sm:text-xl font-bold text-[#19223c] mb-2">
+                استيراد ملف أسئلة
+              </h3>
+              <p className="text-xs sm:text-[13px] text-slate-500 leading-relaxed">
+                استورد مجموعة أسئلة دفعة واحدة عبر ملف Excel بالتنسيق المعتمد، ضمن المادة والوحدة/المجموعة المختارة أعلى الشاشة. جميع الأسئلة المستوردة تُضاف بحالة قابلة للمراجعة قبل ظهورها في الاختبارات.
               </p>
-              <span className="text-[11px] text-slate-400">يدعم صيغ .xlsx, .xls, .csv حتى 10MB</span>
             </div>
-            <div className="flex items-center justify-between text-xs text-slate-500 mb-6">
-              <button className="flex items-center gap-1 text-teal-600 hover:underline font-semibold">
-                <Download className="w-3.5 h-3.5" />
-                تحميل نموذج الملف التجريبي
+
+            {/* 2. Download Template Notice Box */}
+            <div className="bg-[#f0f4f8] rounded-xl py-3 px-4 text-center mb-5 text-xs sm:text-[13px]">
+              <span className="text-slate-600">📄 لم تجهّز الملف بعد؟ </span>
+              <button
+                type="button"
+                onClick={() => {
+                  alert('تم تنزيل نموذج ملف Excel بنجاح.');
+                }}
+                className="text-[#3a7c70] hover:text-[#2d6258] font-bold underline decoration-[#3a7c70]/40 hover:decoration-[#3a7c70] cursor-pointer inline-flex items-center gap-1"
+              >
+                تحميل نموذج Excel الفارغ
               </button>
             </div>
-            <div className="flex items-center justify-end gap-2">
+
+            {/* 3. Choose File Field */}
+            <div className="mb-5">
+              <label className="block text-xs sm:text-[13px] font-bold text-[#19223c] mb-2">
+                اختر الملف <span className="text-rose-500">*</span>
+              </label>
+
+              <label className="border-2 border-dashed border-slate-300 hover:border-[#48877b] rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center text-center bg-white hover:bg-slate-50/60 transition-all cursor-pointer group">
+                <input
+                  type="file"
+                  accept=".xlsx,.xls,.csv"
+                  className="hidden"
+                  onChange={(e) => {
+                    if (e.target.files?.[0]) {
+                      alert(`تم اختيار الملف: ${e.target.files[0].name}`);
+                    }
+                  }}
+                />
+                <div className="flex items-center justify-center gap-2 text-xs sm:text-sm font-medium text-slate-700">
+                  <span className="text-lg">📁</span>
+                  <span>اسحب ملف Excel هنا أو اضغط للاختيار — XLSX, حتى 10MB</span>
+                </div>
+              </label>
+            </div>
+
+            {/* 4. Import Scope Context */}
+            <div className="mb-6">
+              <label className="block text-xs sm:text-[13px] font-bold text-slate-600 mb-2">
+                سيُستورد ضمن
+              </label>
+              <div className="bg-[#f4f7fa] border border-slate-200/90 rounded-xl py-3 px-4 text-xs sm:text-sm font-semibold text-slate-700">
+                {selectedSubject.replace(/[^\u0600-\u06FF\s]/g, '').trim()} ← {selectedGrade} ← {selectedGroup}
+              </div>
+            </div>
+
+            {/* 5. Modal Actions */}
+            <div className="flex items-center justify-end gap-3 pt-2">
               <button
+                type="button"
                 onClick={() => setIsImportModalOpen(false)}
-                className="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl"
+                className="px-6 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-50 transition-colors cursor-pointer"
               >
                 إلغاء
               </button>
               <button
-                onClick={() => setIsImportModalOpen(false)}
-                className="px-5 py-2 text-xs font-bold text-white bg-[#48877b] hover:bg-[#3a7167] rounded-xl shadow-xs"
+                type="button"
+                onClick={() => {
+                  setIsImportModalOpen(false);
+                }}
+                className="px-6 py-2.5 rounded-xl bg-[#19223c] hover:bg-[#111827] text-white font-bold text-xs sm:text-sm transition-colors shadow-xs cursor-pointer"
               >
-                بدء الاستيراد
+                استيراد الأسئلة
               </button>
             </div>
           </div>
