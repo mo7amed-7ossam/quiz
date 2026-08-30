@@ -33,6 +33,18 @@ export interface ChartDataPoint {
   parents: number;
 }
 
+export interface CountryItem {
+  id: string;
+  code: string;
+  nameAr: string;
+  nameEn: string;
+  currency?: string;
+  defaultLanguage: string;
+  curriculumSystem: string;
+  gradesCount: number;
+  status: 'نشط' | 'قريباً' | 'معطل';
+}
+
 export interface QuestionItem {
   id: string;
   question: string;

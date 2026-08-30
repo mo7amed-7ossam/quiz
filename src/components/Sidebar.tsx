@@ -179,18 +179,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   }`}
                 >
                   <span className="text-[13.5px]">{group.title}</span>
-                  <span
-                    className={`text-slate-400 text-xs transition-transform duration-200 ${
+                  <ChevronDown
+                    className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${
                       isGroupOpen ? 'rotate-180' : 'rotate-0'
                     }`}
-                  >
-                    ‹
-                  </span>
+                  />
                 </button>
 
                 {/* Group Sub-items List */}
                 {isGroupOpen && (
-                  <div className="mt-0.5 space-y-0.5 pr-2.5">
+                  <div className="mt-0.5 space-y-0.5 pl-0 pr-2">
                     {group.items.map((item) => {
                       const isActive = activeTab === item.id;
 
@@ -200,23 +198,21 @@ export const Sidebar: React.FC<SidebarProps> = ({
                           type="button"
                           id={`nav-${item.id}`}
                           onClick={() => handleItemClick(item.id)}
-                          className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-right font-semibold transition-all cursor-pointer relative ${
+                          className={`w-full flex items-center justify-start gap-3 px-3 py-2.5 rounded-lg text-right font-semibold transition-all cursor-pointer relative ${
                             isActive
                               ? 'bg-[#243454] text-white'
                               : 'text-slate-300 hover:bg-[#1a2642] hover:text-white'
                           }`}
                         >
-                          {/* Active border bar matching screenshot */}
+                          {/* Active border bar on the RIGHT in RTL */}
                           {isActive && (
-                            <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#48877b] rounded-r-sm" />
+                            <span className="absolute right-0 top-0 bottom-0 w-1 bg-[#48877b] rounded-l-sm" />
                           )}
 
-                          <div className="flex items-center gap-3">
-                            <span className="text-sm shrink-0">{item.icon}</span>
-                            <span className={`text-[13px] ${isActive ? 'font-bold text-white' : 'font-medium'}`}>
-                              {item.label}
-                            </span>
-                          </div>
+                          <span className="text-sm shrink-0">{item.icon}</span>
+                          <span className={`text-[13px] ${isActive ? 'font-bold text-white' : 'font-medium'}`}>
+                            {item.label}
+                          </span>
                         </button>
                       );
                     })}

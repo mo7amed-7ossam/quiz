@@ -8,6 +8,7 @@ import { PendingReviewsTable } from './components/PendingReviewsTable';
 import { ReviewModal } from './components/ReviewModal';
 import { LoginScreen } from './components/LoginScreen';
 import { QuestionBankView, QuestionBankFormState } from './components/QuestionBankView';
+import { CountriesView } from './components/CountriesView';
 import {
   statsData,
   activitiesData,
@@ -78,13 +79,19 @@ const TAB_GROUPS: Record<string, string> = {
 
 export default function App() {
   const [currentView, setCurrentView] = useState<'login' | 'dashboard'>('dashboard');
-  const [activeTab, setActiveTab] = useState('question_bank');
+  const [activeTab, setActiveTab] = useState('countries');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [reviewItems, setReviewItems] = useState<ReviewItem[]>(initialReviewItems);
   const [selectedReview, setSelectedReview] = useState<ReviewItem | null>(null);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [questionBankFormState, setQuestionBankFormState] = useState<QuestionBankFormState | null>(null);
+  const [countriesFormState, setCountriesFormState] = useState<{
+    isForm: boolean;
+    isEditing: boolean;
+    countryName?: string;
+    onBack: () => void;
+  } | null>(null);
 
   const handleUpdateStatus = (id: string, newStatus: ReviewItem['status']) => {
     setReviewItems((prev) =>
@@ -170,6 +177,14 @@ export default function App() {
       );
     }
 
+    if (activeTab === 'countries') {
+      return (
+        <main className="py-6">
+          <CountriesView onFormStateChange={setCountriesFormState} />
+        </main>
+      );
+    }
+
     if (activeTab === 'question_bank') {
       return (
         <main className="py-6">
@@ -237,6 +252,18 @@ export default function App() {
       { label: subTitle },
     ];
     onHeaderBack = questionBankFormState.onBack;
+  } else if (activeTab === 'countries' && countriesFormState?.isForm) {
+    const subTitle = countriesFormState.isEditing
+      ? `بيانات الدولة: ${countriesFormState.countryName || 'السعودية'}`
+      : 'إضافة دولة جديدة';
+    const actionLabel = countriesFormState.isEditing ? 'تعديل' : 'إضافة';
+    customTitle = subTitle;
+    customBreadcrumbs = [
+      { label: 'الإعداد التأسيسي' },
+      { label: 'الدول', onClick: countriesFormState.onBack },
+      { label: actionLabel },
+    ];
+    onHeaderBack = countriesFormState.onBack;
   } else if (activeTab !== 'dashboard') {
     // Top-level sub-view (e.g., countries, classes, question_bank list)
     const groupName = TAB_GROUPS[activeTab] || 'الإعداد التأسيسي';
@@ -256,6 +283,7 @@ export default function App() {
         setActiveTab={(tab) => {
           setActiveTab(tab);
           setQuestionBankFormState(null);
+          setCountriesFormState(null);
         }}
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
