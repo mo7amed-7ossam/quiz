@@ -107,16 +107,6 @@ export const CountryFormView: React.FC<CountryFormViewProps> = ({
 
   return (
     <div className="px-4 sm:px-8 max-w-6xl mx-auto font-cairo space-y-6" dir="rtl">
-      {/* Top Banner Notice (Shown ONLY in Edit mode) */}
-      {isEditing && (
-        <div className="bg-[#f8f5fe] border border-[#ede3fd] rounded-2xl p-4 sm:px-6 sm:py-3.5 text-right shadow-2xs">
-          <p className="text-xs sm:text-[13px] text-[#5e4b7b] leading-relaxed font-medium">
-            <span className="ml-1.5 inline-block">📝</span>
-            شاشة موحّدة تُستخدم لإضافة دولة جديدة ولتعديل دولة قائمة بنفس البنية والحقول. في وضع الإضافة تكون الحقول فارغة، ولا يظهر حقل «عدد الصفوف الدراسية المرتبطة» ولا «منطقة الخطر» إلا بعد أول حفظ للدولة.
-          </p>
-        </div>
-      )}
-
       {/* Main Form Card */}
       <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-100/90 shadow-xs">
         {/* Card Section Title */}
