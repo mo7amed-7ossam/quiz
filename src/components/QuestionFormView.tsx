@@ -7,12 +7,14 @@ interface QuestionFormViewProps {
   initialData?: QuestionItem | null;
   onSave: (questionData: Partial<QuestionItem>) => void;
   onCancel: () => void;
+  onDelete?: (id: string) => void;
 }
 
 export const QuestionFormView: React.FC<QuestionFormViewProps> = ({
   initialData,
   onSave,
   onCancel,
+  onDelete,
 }) => {
   const [type, setType] = useState<QuestionItem['type']>(
     initialData?.type || 'اختيار من متعدد'
@@ -275,6 +277,31 @@ export const QuestionFormView: React.FC<QuestionFormViewProps> = ({
               })}
             </div>
           </div>
+
+          {/* Danger Zone: Delete Question (Shown when editing existing question) */}
+          {initialData?.id && (
+            <div className="mt-8 bg-[#fef4f2] border border-dashed border-[#fbdcd6] rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="text-right">
+                <h4 className="text-sm sm:text-base font-bold text-[#b93822] mb-1">
+                  حذف السؤال
+                </h4>
+                <p className="text-xs sm:text-[13px] text-[#b93822]/90 leading-relaxed font-semibold">
+                  لا يمكن التراجع عن حذف السؤال بعد تأكيده — سيتم إزالته نهائياً من بنك الأسئلة والمجموعات المرتبطة.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  if (initialData.id && onDelete) {
+                    onDelete(initialData.id);
+                  }
+                }}
+                className="px-6 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-[0.98] text-white font-bold text-xs sm:text-sm transition-all shrink-0 cursor-pointer"
+              >
+                حذف السؤال
+              </button>
+            </div>
+          )}
 
           {/* Bottom Actions */}
           <div className="flex items-center justify-end gap-3 pt-6 border-t border-slate-100">

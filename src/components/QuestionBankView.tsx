@@ -118,6 +118,10 @@ export const QuestionBankView: React.FC<QuestionBankViewProps> = ({ onFormStateC
   const handleDelete = (id: string) => {
     setQuestions((prev) => prev.filter((q) => q.id !== id));
     setDeleteConfirmId(null);
+    if (viewMode === 'form') {
+      setViewMode('list');
+      setEditingQuestion(null);
+    }
   };
 
   const getDifficultyBadge = (difficulty: QuestionItem['difficulty']) => {
@@ -143,14 +147,69 @@ export const QuestionBankView: React.FC<QuestionBankViewProps> = ({ onFormStateC
     }
   };
 
+  // Helper to render the Delete Confirmation Modal
+  const renderDeleteModal = () => {
+    if (!deleteConfirmId) return null;
+    const targetQuestion = questions.find((q) => q.id === deleteConfirmId);
+    const questionSnippet = targetQuestion ? targetQuestion.question : 'السؤال المحدد';
+
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 font-cairo" dir="rtl">
+        <div className="bg-white rounded-3xl w-full max-w-lg p-7 sm:p-9 shadow-2xl text-center animate-in fade-in zoom-in-95 duration-150">
+          {/* Trash Icon */}
+          <div className="flex items-center justify-center mb-5 text-[#2c3e50]">
+            <Trash2 className="w-11 h-11 stroke-[1.4] text-slate-700" />
+          </div>
+
+          {/* Title */}
+          <h3 className="text-lg sm:text-xl font-bold text-[#19223c] mb-4">
+            حذف السؤال: {questionSnippet.length > 35 ? questionSnippet.slice(0, 35) + '...' : questionSnippet}
+          </h3>
+
+          {/* Warning Notice Box */}
+          <div className="bg-[#fef4f2] border border-[#fbdcd6] rounded-2xl p-4 sm:p-5 mb-7 text-center">
+            <p className="text-xs sm:text-[13px] text-[#b93822] font-semibold leading-relaxed">
+              هل أنت متأكد من رغبتك في حذف هذا السؤال من بنك الأسئلة؟ — لا يمكن التراجع عن هذا الإجراء وسيتم إزالته من جميع المجموعات المرتبطة.
+            </p>
+          </div>
+
+          {/* Action Buttons Row */}
+          <div className="flex items-center justify-center gap-3.5">
+            <button
+              type="button"
+              onClick={() => handleDelete(deleteConfirmId)}
+              className="px-8 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-[0.98] text-white font-bold text-xs sm:text-sm transition-all cursor-pointer"
+            >
+              حذف السؤال
+            </button>
+            <button
+              type="button"
+              onClick={() => setDeleteConfirmId(null)}
+              className="px-8 py-2.5 rounded-xl border border-[#19223c] bg-white text-[#19223c] font-bold text-xs sm:text-sm hover:bg-slate-50 transition-colors cursor-pointer"
+            >
+              إلغاء
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   // If in Form View, render QuestionFormView
   if (viewMode === 'form') {
     return (
-      <QuestionFormView
-        initialData={editingQuestion}
-        onSave={handleSaveQuestionData}
-        onCancel={() => setViewMode('list')}
-      />
+      <>
+        <QuestionFormView
+          initialData={editingQuestion}
+          onSave={handleSaveQuestionData}
+          onCancel={() => {
+            setViewMode('list');
+            setEditingQuestion(null);
+          }}
+          onDelete={(id) => setDeleteConfirmId(id)}
+        />
+        {renderDeleteModal()}
+      </>
     );
   }
 
@@ -361,51 +420,7 @@ export const QuestionBankView: React.FC<QuestionBankViewProps> = ({ onFormStateC
       </div>
 
       {/* Delete Confirmation Modal */}
-      {deleteConfirmId && (() => {
-        const targetQuestion = questions.find((q) => q.id === deleteConfirmId);
-        const questionSnippet = targetQuestion ? targetQuestion.question : 'السؤال المحدد';
-
-        return (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 font-cairo" dir="rtl">
-            <div className="bg-white rounded-3xl w-full max-w-lg p-7 sm:p-9 shadow-2xl text-center animate-in fade-in zoom-in-95 duration-150">
-              {/* Trash Icon */}
-              <div className="flex items-center justify-center mb-5 text-[#2c3e50]">
-                <Trash2 className="w-11 h-11 stroke-[1.4] text-slate-700" />
-              </div>
-
-              {/* Title */}
-              <h3 className="text-lg sm:text-xl font-bold text-[#19223c] mb-4">
-                حذف السؤال: {questionSnippet.length > 35 ? questionSnippet.slice(0, 35) + '...' : questionSnippet}
-              </h3>
-
-              {/* Warning Notice Box */}
-              <div className="bg-[#fef4f2] border border-[#fbdcd6] rounded-2xl p-4 sm:p-5 mb-7 text-center">
-                <p className="text-xs sm:text-[13px] text-[#b93822] font-semibold leading-relaxed">
-                  هل أنت متأكد من رغبتك في حذف هذا السؤال من بنك الأسئلة؟ — لا يمكن التراجع عن هذا الإجراء وسيتم إزالته من جميع المجموعات المرتبطة.
-                </p>
-              </div>
-
-              {/* Action Buttons Row */}
-              <div className="flex items-center justify-center gap-3.5">
-                <button
-                  type="button"
-                  onClick={() => handleDelete(deleteConfirmId)}
-                  className="px-8 py-2.5 rounded-xl bg-[#e39f94] hover:bg-[#d88d81] active:scale-[0.99] text-white font-bold text-xs sm:text-sm transition-all shadow-xs cursor-pointer"
-                >
-                  حذف السؤال
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setDeleteConfirmId(null)}
-                  className="px-8 py-2.5 rounded-xl border border-[#19223c] bg-white text-[#19223c] font-bold text-xs sm:text-sm hover:bg-slate-50 transition-colors cursor-pointer"
-                >
-                  إلغاء
-                </button>
-              </div>
-            </div>
-          </div>
-        );
-      })()}
+      {renderDeleteModal()}
 
       {/* Import File Modal */}
       {isImportModalOpen && (
