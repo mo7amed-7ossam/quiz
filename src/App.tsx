@@ -32,7 +32,6 @@ import {
   Settings,
   BarChart3,
   ArrowRight,
-  LogIn,
 } from 'lucide-react';
 
 const TAB_TITLES: Record<string, string> = {
@@ -305,16 +304,6 @@ export default function App() {
 
         {renderTabContent()}
       </div>
-
-      {/* Floating button to switch to Login screen preview */}
-      <button
-        onClick={() => setCurrentView('login')}
-        className="fixed bottom-4 left-4 z-40 bg-[#172036] hover:bg-[#202b48] text-white text-xs font-bold py-2 px-3.5 rounded-xl shadow-lg border border-slate-700 flex items-center gap-1.5 transition-all hover:scale-105"
-        title="عرض شاشة تسجيل الدخول"
-      >
-        <LogIn className="w-3.5 h-3.5 text-teal-400" />
-        <span>شاشة تسجيل الدخول</span>
-      </button>
 
       {/* Modal for reviews */}
       <ReviewModal
