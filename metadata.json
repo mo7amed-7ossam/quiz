@@ -1,0 +1,6 @@
+{
+  "name": "لوحة إدارة المنصة",
+  "description": "لوحة تحكم وإدارة المنصة التعليمية باللغة العربية مع دعم كامل للاتجاه من اليمين لليسار (RTL)",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
