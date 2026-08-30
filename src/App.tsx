@@ -50,6 +50,9 @@ const TAB_TITLES: Record<string, string> = {
   roles: 'الأدوار والصلاحيات',
   general_settings: 'الإعدادات العامة',
   reports: 'التقارير والتحليلات',
+  companion_catalog: 'كتالوج الرفيق التعليمي',
+  design_system: 'نظام التصميم',
+  parent_reviews: 'مراجعة آراء أولياء الأمور',
 };
 
 const TAB_GROUPS: Record<string, string> = {
@@ -61,13 +64,16 @@ const TAB_GROUPS: Record<string, string> = {
   question_bank: 'الإعداد التأسيسي',
   calendar: 'الإعداد التأسيسي',
   users: 'المستخدمون',
-  subscriptions: 'الاشتراكات والخطط',
+  subscriptions: 'المستخدمون',
   achievements: 'التحفيز والإشعارات',
   notifications: 'التحفيز والإشعارات',
   ai_safety: 'الذكاء الاصطناعي والسلامة',
   roles: 'الحوكمة',
   general_settings: 'الحوكمة',
   reports: 'التقارير',
+  companion_catalog: 'الرفيق التعليمي',
+  design_system: 'النظام',
+  parent_reviews: 'خدمة العملاء',
 };
 
 export default function App() {
@@ -217,9 +223,10 @@ export default function App() {
     );
   };
 
-  // Dynamic header title and breadcrumbs when in sub-screens like "إضافة سؤال"
+  // Dynamic header title and breadcrumbs when in sub-screens like "إضافة سؤال" or sub-tabs
   let customTitle: string | undefined;
   let customBreadcrumbs: BreadcrumbItem[] | undefined;
+  let onHeaderBack: (() => void) | undefined;
 
   if (activeTab === 'question_bank' && questionBankFormState?.isForm) {
     const subTitle = questionBankFormState.isEditing ? 'تعديل سؤال' : 'إضافة سؤال';
@@ -229,11 +236,21 @@ export default function App() {
       { label: 'بنك الأسئلة', onClick: questionBankFormState.onBack },
       { label: subTitle },
     ];
+    onHeaderBack = questionBankFormState.onBack;
+  } else if (activeTab !== 'dashboard') {
+    // Top-level sub-view (e.g., countries, classes, question_bank list)
+    const groupName = TAB_GROUPS[activeTab] || 'الإعداد التأسيسي';
+    const tabName = TAB_TITLES[activeTab] || 'القسم';
+    customTitle = tabName;
+    customBreadcrumbs = [
+      { label: groupName },
+      { label: tabName },
+    ];
   }
 
   return (
     <div className="min-h-screen bg-[#f1f5f9] flex flex-row text-slate-800 font-cairo antialiased relative">
-      {/* Sidebar on the Left */}
+      {/* Sidebar on the Right (RTL layout) */}
       <Sidebar
         activeTab={activeTab}
         setActiveTab={(tab) => {
@@ -244,7 +261,7 @@ export default function App() {
         onClose={() => setIsSidebarOpen(false)}
       />
 
-      {/* Main Content Area on the Right */}
+      {/* Main Content Area on the Left */}
       <div className="flex-1 flex flex-col min-w-0 overflow-x-hidden">
         <Header
           onToggleSidebar={() => setIsSidebarOpen(true)}
@@ -254,6 +271,7 @@ export default function App() {
           breadcrumbGroup={TAB_GROUPS[activeTab] || 'الرئيسية'}
           customTitle={customTitle}
           customBreadcrumbs={customBreadcrumbs}
+          onBack={onHeaderBack}
           onLogout={() => setCurrentView('login')}
         />
 

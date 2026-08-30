@@ -1,23 +1,5 @@
-import React from 'react';
-import {
-  LayoutDashboard,
-  Globe2,
-  GraduationCap,
-  BookOpen,
-  Compass,
-  HelpCircle,
-  CalendarDays,
-  Users2,
-  CreditCard,
-  Trophy,
-  BellRing,
-  Bot,
-  ShieldCheck,
-  Settings,
-  BarChart3,
-  ChevronLeft,
-  X,
-} from 'lucide-react';
+import React, { useState } from 'react';
+import { ChevronDown, ChevronLeft, X } from 'lucide-react';
 
 interface SidebarProps {
   activeTab: string;
@@ -26,16 +8,16 @@ interface SidebarProps {
   onClose: () => void;
 }
 
-interface NavItem {
+interface SubItem {
   id: string;
   label: string;
-  icon: React.ElementType;
-  count?: number;
+  icon: string;
 }
 
-interface NavSection {
-  title?: string;
-  items: NavItem[];
+interface SidebarGroup {
+  id: string;
+  title: string;
+  items: SubItem[];
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -44,62 +26,90 @@ export const Sidebar: React.FC<SidebarProps> = ({
   isOpen,
   onClose,
 }) => {
-  const sections: NavSection[] = [
+  // Collapsible groups structure matching the requested HTML
+  const groups: SidebarGroup[] = [
     {
+      id: 'foundation',
+      title: 'الإعداد التأسيسي',
       items: [
-        { id: 'dashboard', label: 'لوحة التحكم', icon: LayoutDashboard },
+        { id: 'countries', label: 'الدول', icon: '🌍' },
+        { id: 'classes', label: 'الصفوف الدراسية', icon: '🏫' },
+        { id: 'subjects', label: 'المواد الدراسية', icon: '📚' },
+        { id: 'curriculum', label: 'المنهج الدراسي', icon: '🌳' },
+        { id: 'question_bank', label: 'بنك الأسئلة', icon: '❓' },
+        { id: 'calendar', label: 'التقويم الأكاديمي', icon: '📅' },
       ],
     },
     {
-      title: 'الإعداد الأساسي',
-      items: [
-        { id: 'countries', label: 'الدول', icon: Globe2 },
-        { id: 'classes', label: 'الصفوف الدراسية', icon: GraduationCap },
-        { id: 'subjects', label: 'المواد الدراسية', icon: BookOpen },
-        { id: 'curriculum', label: 'المنهج الدراسي', icon: Compass },
-        { id: 'question_bank', label: 'بنك الأسئلة', icon: HelpCircle },
-        { id: 'calendar', label: 'التقويم الأكاديمي', icon: CalendarDays },
-      ],
-    },
-    {
+      id: 'users_group',
       title: 'المستخدمون',
       items: [
-        { id: 'users', label: 'المستخدمون', icon: Users2 },
+        { id: 'users', label: 'المستخدمون', icon: '👥' },
+        { id: 'subscriptions', label: 'الاشتراكات والخطط', icon: '💳' },
       ],
     },
     {
-      title: 'الاشتراكات والخطط',
-      items: [
-        { id: 'subscriptions', label: 'الاشتراكات والخطط', icon: CreditCard },
-      ],
-    },
-    {
+      id: 'motivation',
       title: 'التحفيز والإشعارات',
       items: [
-        { id: 'achievements', label: 'الإنجازات والمكافآت', icon: Trophy },
-        { id: 'notifications', label: 'قوالب الإشعارات', icon: BellRing },
+        { id: 'achievements', label: 'الإنجازات والمكافآت', icon: '🏆' },
+        { id: 'notifications', label: 'قوالب الإشعارات', icon: '🔔' },
       ],
     },
     {
+      id: 'ai_safety_group',
       title: 'الذكاء الاصطناعي والسلامة',
       items: [
-        { id: 'ai_safety', label: 'المساعد الذكي والسلامة', icon: Bot },
+        { id: 'ai_safety', label: 'المساعد الذكي والسلامة', icon: '🛡️' },
       ],
     },
     {
+      id: 'governance',
       title: 'الحوكمة',
       items: [
-        { id: 'roles', label: 'الأدوار والصلاحيات', icon: ShieldCheck },
-        { id: 'general_settings', label: 'الإعدادات العامة', icon: Settings },
+        { id: 'roles', label: 'الأدوار والصلاحيات', icon: '🔐' },
+        { id: 'general_settings', label: 'الإعدادات العامة', icon: '⚙️' },
       ],
     },
     {
+      id: 'reports_group',
       title: 'التقارير',
       items: [
-        { id: 'reports', label: 'التقارير والتحليلات', icon: BarChart3 },
+        { id: 'reports', label: 'التقارير والتحليلات', icon: '📊' },
+      ],
+    },
+    {
+      id: 'companion',
+      title: 'الرفيق التعليمي',
+      items: [
+        { id: 'companion_catalog', label: 'كتالوج الرفيق التعليمي', icon: '🧸' },
+      ],
+    },
+    {
+      id: 'system',
+      title: 'النظام',
+      items: [
+        { id: 'design_system', label: 'نظام التصميم', icon: '🎨' },
       ],
     },
   ];
+
+  // Keep track of opened accordion groups (default foundation is open)
+  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({
+    foundation: true,
+  });
+
+  const toggleGroup = (groupId: string) => {
+    setOpenGroups((prev) => ({
+      ...prev,
+      [groupId]: !prev[groupId],
+    }));
+  };
+
+  const handleItemClick = (id: string) => {
+    setActiveTab(id);
+    if (window.innerWidth < 1024) onClose();
+  };
 
   return (
     <>
@@ -108,25 +118,24 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <div
           id="sidebar-backdrop"
           onClick={onClose}
-          className="fixed inset-0 bg-slate-900/60 z-40 lg:hidden backdrop-blur-xs transition-opacity"
+          className="fixed inset-0 bg-slate-900/70 z-40 lg:hidden backdrop-blur-xs transition-opacity"
         />
       )}
 
       <aside
         id="main-sidebar"
-        className={`fixed top-0 bottom-0 left-0 z-50 w-72 bg-[#172036] text-slate-300 flex flex-col transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${
-          isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-        } border-r border-[#24304d] shadow-2xl lg:shadow-none select-none`}
+        dir="rtl"
+        className={`fixed top-0 bottom-0 right-0 z-50 w-64 sm:w-72 bg-[#121c33] text-slate-300 flex flex-col transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${
+          isOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'
+        } border-l border-[#1b2746] shadow-2xl lg:shadow-none select-none font-cairo`}
       >
-        {/* Sidebar Header */}
-        <div className="h-16 px-5 flex items-center justify-between border-b border-[#222f4c] bg-[#141b2e]">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-amber-500 to-amber-400 flex items-center justify-center text-slate-950 font-bold shadow-md shadow-amber-500/20">
-              <Compass className="w-5 h-5 text-slate-950 rotate-45" />
-            </div>
-            <h1 className="text-lg font-bold text-white tracking-wide">
+        {/* Sidebar Brand Header */}
+        <div className="h-16 px-5 flex items-center justify-between border-b border-[#1c2949] bg-[#0e1629]">
+          <div className="flex items-center gap-2.5">
+            <span className="text-xl">🎓</span>
+            <span className="text-[16px] font-bold text-white tracking-wide">
               لوحة إدارة المنصة
-            </h1>
+            </span>
           </div>
           <button
             id="close-sidebar-btn"
@@ -138,69 +147,103 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         {/* Scrollable Nav Area */}
-        <div className="flex-1 overflow-y-auto py-3 px-3 space-y-5 text-sm">
-          {sections.map((section, sIndex) => (
-            <div key={sIndex} className="space-y-1">
-              {section.title && (
-                <div className="px-3 py-1 text-xs font-semibold text-slate-400 tracking-wider">
-                  {section.title}
-                </div>
-              )}
-              <div className="space-y-0.5">
-                {section.items.map((item) => {
-                  const Icon = item.icon;
-                  const isActive = activeTab === item.id;
+        <div className="flex-1 overflow-y-auto py-3 px-2.5 space-y-1.5 text-xs sm:text-[13px] custom-scrollbar">
+          {/* Main Dashboard Link */}
+          <button
+            type="button"
+            id="nav-dashboard"
+            onClick={() => handleItemClick('dashboard')}
+            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-right font-semibold transition-all cursor-pointer ${
+              activeTab === 'dashboard'
+                ? 'bg-[#223150] text-white shadow-xs'
+                : 'text-slate-300 hover:bg-[#192540] hover:text-white'
+            }`}
+          >
+            <span className="text-base">🏛️</span>
+            <span>لوحة التحكم الرئيسية</span>
+          </button>
 
-                  return (
-                    <button
-                      key={item.id}
-                      id={`nav-${item.id}`}
-                      onClick={() => {
-                        setActiveTab(item.id);
-                        if (window.innerWidth < 1024) onClose();
-                      }}
-                      className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-right font-medium transition-all group relative ${
-                        isActive
-                          ? 'bg-[#25334d] text-white shadow-xs font-semibold'
-                          : 'text-slate-300 hover:bg-[#1e2a44] hover:text-white'
-                      }`}
-                    >
-                      {/* Active indicator bar on right */}
-                      {isActive && (
-                        <span className="absolute right-0 top-1.5 bottom-1.5 w-1 bg-teal-400 rounded-l-full" />
-                      )}
+          {/* Groups & Sub-items */}
+          {groups.map((group) => {
+            const isGroupOpen = !!openGroups[group.id];
+            const hasActiveChild = group.items.some((item) => item.id === activeTab);
 
-                      <div className="flex items-center gap-3">
-                        <Icon
-                          className={`w-4 h-4 transition-colors ${
+            return (
+              <div key={group.id} className="pt-0.5">
+                {/* Group Header Button */}
+                <button
+                  type="button"
+                  onClick={() => toggleGroup(group.id)}
+                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-right font-bold transition-colors cursor-pointer group ${
+                    hasActiveChild ? 'text-white' : 'text-slate-300 hover:text-white hover:bg-[#18233d]'
+                  }`}
+                >
+                  <span className="text-[13.5px]">{group.title}</span>
+                  <span
+                    className={`text-slate-400 text-xs transition-transform duration-200 ${
+                      isGroupOpen ? 'rotate-180' : 'rotate-0'
+                    }`}
+                  >
+                    ‹
+                  </span>
+                </button>
+
+                {/* Group Sub-items List */}
+                {isGroupOpen && (
+                  <div className="mt-0.5 space-y-0.5 pr-2.5">
+                    {group.items.map((item) => {
+                      const isActive = activeTab === item.id;
+
+                      return (
+                        <button
+                          key={item.id}
+                          type="button"
+                          id={`nav-${item.id}`}
+                          onClick={() => handleItemClick(item.id)}
+                          className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-right font-semibold transition-all cursor-pointer relative ${
                             isActive
-                              ? 'text-teal-400'
-                              : 'text-slate-400 group-hover:text-slate-200'
+                              ? 'bg-[#243454] text-white'
+                              : 'text-slate-300 hover:bg-[#1a2642] hover:text-white'
                           }`}
-                        />
-                        <span className="text-[13.5px]">{item.label}</span>
-                      </div>
+                        >
+                          {/* Active border bar matching screenshot */}
+                          {isActive && (
+                            <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#48877b] rounded-r-sm" />
+                          )}
 
-                      {isActive && (
-                        <ChevronLeft className="w-3.5 h-3.5 text-teal-400 opacity-80" />
-                      )}
-                    </button>
-                  );
-                })}
+                          <div className="flex items-center gap-3">
+                            <span className="text-sm shrink-0">{item.icon}</span>
+                            <span className={`text-[13px] ${isActive ? 'font-bold text-white' : 'font-medium'}`}>
+                              {item.label}
+                            </span>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        {/* Sidebar Footer */}
-        <div className="p-3.5 border-t border-[#222f4c] bg-[#141b2e] flex items-center justify-between text-xs text-slate-400">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>النظام متصل</span>
-          </div>
-          <span className="font-mono text-[11px] text-slate-500">v2.4.0</span>
+        {/* Bottom Static Item: Parent Reviews */}
+        <div className="p-2.5 border-t border-[#1c2949] bg-[#0e1629]">
+          <button
+            type="button"
+            onClick={() => handleItemClick('parent_reviews')}
+            className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-right font-medium transition-colors cursor-pointer ${
+              activeTab === 'parent_reviews'
+                ? 'bg-[#223150] text-white font-bold'
+                : 'text-slate-300 hover:bg-[#18233d] hover:text-white'
+            }`}
+          >
+            <span className="text-base">💬</span>
+            <span className="text-xs sm:text-[13px]">مراجعة آراء أولياء الأمور</span>
+          </button>
         </div>
       </aside>
     </>
   );
 };
+
