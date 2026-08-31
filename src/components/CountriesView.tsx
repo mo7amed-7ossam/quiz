@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Pencil, Trash2 } from 'lucide-react';
 import { CountryItem } from '../types';
 import { CountryFormView } from './CountryFormView';
+import { DeleteConfirmModal } from './DeleteConfirmModal';
 
 interface CountriesViewProps {
   onFormStateChange?: (state: {
@@ -134,47 +135,14 @@ export const CountriesView: React.FC<CountriesViewProps> = ({
     const gradesCount = targetCountry ? targetCountry.gradesCount : 12;
 
     return (
-      <div
-        className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 font-cairo"
-        dir="rtl"
-      >
-        <div className="bg-white rounded-3xl w-full max-w-lg p-7 sm:p-9 shadow-2xl text-center animate-in fade-in zoom-in-95 duration-150">
-          {/* Trash Icon */}
-          <div className="flex items-center justify-center mb-5 text-[#2c3e50]">
-            <Trash2 className="w-11 h-11 stroke-[1.4] text-slate-700" />
-          </div>
-
-          {/* Title */}
-          <h3 className="text-lg sm:text-xl font-bold text-[#19223c] mb-4">
-            حذف الدولة: {countryName}
-          </h3>
-
-          {/* Warning Notice Box */}
-          <div className="bg-[#fef4f2] border border-[#fbdcd6] rounded-2xl p-4 sm:p-5 mb-7 text-center">
-            <p className="text-xs sm:text-[13px] text-[#b93822] font-semibold leading-relaxed">
-              لا يمكن حذف دولة مرتبطة بصفوف دراسية — يجب حذف أو نقل الصفوف المرتبطة بها أولاً ({gradesCount} صف حالياً)
-            </p>
-          </div>
-
-          {/* Action Buttons Row */}
-          <div className="flex items-center justify-center gap-3.5">
-            <button
-              type="button"
-              onClick={() => handleDelete(deleteConfirmId)}
-              className="px-8 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-[0.98] text-white font-bold text-xs sm:text-sm transition-all cursor-pointer"
-            >
-              حذف الدولة
-            </button>
-            <button
-              type="button"
-              onClick={() => setDeleteConfirmId(null)}
-              className="px-8 py-2.5 rounded-xl border border-[#19223c] bg-white text-[#19223c] font-bold text-xs sm:text-sm hover:bg-slate-50 transition-colors cursor-pointer"
-            >
-              إلغاء
-            </button>
-          </div>
-        </div>
-      </div>
+      <DeleteConfirmModal
+        isOpen={Boolean(deleteConfirmId)}
+        title={`حذف الدولة: ${countryName}`}
+        warningMessage={`لا يمكن حذف دولة مرتبطة بصفوف دراسية — يجب حذف أو نقل الصفوف المرتبطة بها أولاً (${gradesCount} صف حالياً)`}
+        confirmLabel="حذف الدولة"
+        onConfirm={() => handleDelete(deleteConfirmId)}
+        onCancel={() => setDeleteConfirmId(null)}
+      />
     );
   };
 

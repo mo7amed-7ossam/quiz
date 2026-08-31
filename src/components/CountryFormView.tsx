@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { CountryItem } from '../types';
 import { ChevronDown, Check } from 'lucide-react';
+import { DeleteConfirmModal } from './DeleteConfirmModal';
 
 interface CountryFormViewProps {
   initialData?: CountryItem | null;
@@ -61,6 +62,7 @@ export const CountryFormView: React.FC<CountryFormViewProps> = ({
   const [isActive, setIsActive] = useState<boolean>(
     initialData?.status ? initialData.status === 'نشط' : true
   );
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isCurriculumOpen, setIsCurriculumOpen] = useState(false);
@@ -347,11 +349,7 @@ export const CountryFormView: React.FC<CountryFormViewProps> = ({
           </div>
           <button
             type="button"
-            onClick={() => {
-              if (initialData.id && onDelete) {
-                onDelete(initialData.id);
-              }
-            }}
+            onClick={() => setIsDeleteModalOpen(true)}
             className="px-6 py-2.5 rounded-xl bg-[#e5a298] hover:bg-[#dc9287] active:scale-[0.98] text-white font-bold text-xs sm:text-sm transition-all shrink-0 cursor-pointer shadow-2xs"
           >
             حذف الدولة
@@ -379,6 +377,23 @@ export const CountryFormView: React.FC<CountryFormViewProps> = ({
           {isEditing ? 'حفظ الدولة' : 'إضافة الدولة'}
         </button>
       </div>
+
+      {/* Standard Delete Confirmation Modal */}
+      {isEditing && initialData?.id && (
+        <DeleteConfirmModal
+          isOpen={isDeleteModalOpen}
+          title={`حذف الدولة: ${initialData.nameAr}`}
+          warningMessage={`لا يمكن حذف دولة مرتبطة بصفوف دراسية — يجب حذف أو نقل الصفوف المرتبطة بها أولاً (${initialData.gradesCount || 12} صف حالياً)`}
+          confirmLabel="حذف الدولة"
+          onConfirm={() => {
+            if (initialData.id && onDelete) {
+              onDelete(initialData.id);
+            }
+            setIsDeleteModalOpen(false);
+          }}
+          onCancel={() => setIsDeleteModalOpen(false)}
+        />
+      )}
     </div>
   );
 };

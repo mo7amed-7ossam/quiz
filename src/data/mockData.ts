@@ -1,4 +1,4 @@
-import { StatItem, ActivityItem, ReviewItem, ChartDataPoint, QuestionItem, SubjectItem } from '../types';
+import { StatItem, ActivityItem, ReviewItem, ChartDataPoint, QuestionItem, SubjectItem, AcademicCalendarItem } from '../types';
 
 export const statsData: StatItem[] = [
   {
@@ -287,6 +287,63 @@ export const initialSubjectsData: SubjectItem[] = [
     status: true,
     countryCode: 'SA',
     gradeId: 'السادس الابتدائي',
+  },
+];
+
+export const initialAcademicCalendarsData: AcademicCalendarItem[] = [
+  {
+    id: 'cal-1',
+    countryCode: 'SA',
+    academicYear: '2027 / 2026',
+    term1Start: '2026-08-24',
+    term1End: '2026-12-18',
+    term2Start: '2027-01-10',
+    term2End: '2027-05-20',
+    holidays: [
+      { id: 'hol-1', name: 'اليوم الوطني', startDate: '09-23', endDate: '09-23' },
+      { id: 'hol-2', name: 'إجازة منتصف الفصل', startDate: '10-20', endDate: '10-24' },
+      { id: 'hol-3', name: 'إجازة نهاية الفصل الأول', startDate: '12-19', endDate: '01-09' },
+    ],
+  },
+  {
+    id: 'cal-2',
+    countryCode: 'SA',
+    academicYear: '2026 / 2025',
+    term1Start: '2025-08-25',
+    term1End: '2025-12-19',
+    term2Start: '2026-01-11',
+    term2End: '2026-05-21',
+    holidays: [
+      { id: 'hol-21', name: 'اليوم الوطني', startDate: '09-23', endDate: '09-23' },
+      { id: 'hol-22', name: 'إجازة منتصف الفصل', startDate: '10-22', endDate: '10-26' },
+      { id: 'hol-23', name: 'إجازة يوم التأسيس', startDate: '02-22', endDate: '02-22' },
+    ],
+  },
+  {
+    id: 'cal-3',
+    countryCode: 'EG',
+    academicYear: '2027 / 2026',
+    term1Start: '2026-09-20',
+    term1End: '2027-01-14',
+    term2Start: '2027-02-07',
+    term2End: '2027-06-04',
+    holidays: [
+      { id: 'hol-31', name: 'إجازة انتصارات أكتوبر', startDate: '10-06', endDate: '10-06' },
+      { id: 'hol-32', name: 'إجازة نصف العام', startDate: '01-16', endDate: '01-30' },
+    ],
+  },
+  {
+    id: 'cal-4',
+    countryCode: 'AE',
+    academicYear: '2027 / 2026',
+    term1Start: '2026-08-28',
+    term1End: '2026-12-12',
+    term2Start: '2027-01-05',
+    term2End: '2027-06-25',
+    holidays: [
+      { id: 'hol-41', name: 'إجازة اليوم الوطني', startDate: '12-02', endDate: '12-03' },
+      { id: 'hol-42', name: 'إجازة الشتاء', startDate: '12-15', endDate: '01-04' },
+    ],
   },
 ];
 

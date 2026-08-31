@@ -59,6 +59,27 @@ export interface SubjectItem {
   gradeId: string;
 }
 
+export interface OfficialHoliday {
+  id: string;
+  name: string;
+  startDate: string; // e.g. "09-23" or "2026-09-23"
+  endDate: string;   // e.g. "09-23" or "2026-09-23"
+}
+
+export interface AcademicCalendarItem {
+  id: string;
+  countryCode: string;
+  academicYear: string;
+  term1Start: string;
+  term1End: string;
+  term2Start: string;
+  term2End: string;
+  term3Start?: string;
+  term3End?: string;
+  notes?: string;
+  holidays?: OfficialHoliday[];
+}
+
 export interface QuestionItem {
   id: string;
   question: string;

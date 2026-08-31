@@ -10,6 +10,7 @@ import { LoginScreen } from './components/LoginScreen';
 import { QuestionBankView, QuestionBankFormState } from './components/QuestionBankView';
 import { CountriesView } from './components/CountriesView';
 import { SubjectsView } from './components/SubjectsView';
+import { AcademicCalendarView } from './components/AcademicCalendarView';
 import {
   statsData,
   activitiesData,
@@ -79,7 +80,7 @@ const TAB_GROUPS: Record<string, string> = {
 
 export default function App() {
   const [currentView, setCurrentView] = useState<'login' | 'dashboard'>('dashboard');
-  const [activeTab, setActiveTab] = useState('subjects');
+  const [activeTab, setActiveTab] = useState('calendar');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [reviewItems, setReviewItems] = useState<ReviewItem[]>(initialReviewItems);
@@ -96,6 +97,12 @@ export default function App() {
     isForm: boolean;
     isEditing: boolean;
     subjectName?: string;
+    onBack: () => void;
+  } | null>(null);
+  const [calendarFormState, setCalendarFormState] = useState<{
+    isForm: boolean;
+    isEditing: boolean;
+    calendarYear?: string;
     onBack: () => void;
   } | null>(null);
 
@@ -199,6 +206,14 @@ export default function App() {
       );
     }
 
+    if (activeTab === 'calendar') {
+      return (
+        <main className="py-6">
+          <AcademicCalendarView onFormStateChange={setCalendarFormState} />
+        </main>
+      );
+    }
+
     if (activeTab === 'question_bank') {
       return (
         <main className="py-6">
@@ -290,6 +305,18 @@ export default function App() {
       { label: actionLabel },
     ];
     onHeaderBack = subjectsFormState.onBack;
+  } else if (activeTab === 'calendar' && calendarFormState?.isForm) {
+    const subTitle = calendarFormState.isEditing
+      ? `تعديل تقويم أكاديمي: ${calendarFormState.calendarYear || ''}`
+      : 'إضافة تقويم أكاديمي جديد';
+    const actionLabel = calendarFormState.isEditing ? 'تعديل' : 'إضافة';
+    customTitle = subTitle;
+    customBreadcrumbs = [
+      { label: 'الإعداد التأسيسي' },
+      { label: 'التقويم الأكاديمي', onClick: calendarFormState.onBack },
+      { label: actionLabel },
+    ];
+    onHeaderBack = calendarFormState.onBack;
   } else if (activeTab !== 'dashboard') {
     // Top-level sub-view (e.g., countries, classes, question_bank list)
     const groupName = TAB_GROUPS[activeTab] || 'الإعداد التأسيسي';
@@ -311,6 +338,7 @@ export default function App() {
           setQuestionBankFormState(null);
           setCountriesFormState(null);
           setSubjectsFormState(null);
+          setCalendarFormState(null);
         }}
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}

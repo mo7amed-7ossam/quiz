@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { SubjectItem } from '../types';
 import { ChevronDown, Check } from 'lucide-react';
+import { DeleteConfirmModal } from './DeleteConfirmModal';
 
 interface SubjectFormViewProps {
   initialData?: SubjectItem | null;
@@ -69,6 +70,7 @@ export const SubjectFormView: React.FC<SubjectFormViewProps> = ({
   const [isActive, setIsActive] = useState<boolean>(
     initialData?.status !== undefined ? initialData.status : true
   );
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const [isGradeOpen, setIsGradeOpen] = useState(false);
   const [isColorOpen, setIsColorOpen] = useState(false);
@@ -389,7 +391,7 @@ export const SubjectFormView: React.FC<SubjectFormViewProps> = ({
               disabled={unitsCount > 0}
               onClick={() => {
                 if (unitsCount === 0 && initialData?.id && onDelete) {
-                  onDelete(initialData.id);
+                  setIsDeleteModalOpen(true);
                 }
               }}
               className={`px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-white transition-all shadow-2xs ${
@@ -425,6 +427,23 @@ export const SubjectFormView: React.FC<SubjectFormViewProps> = ({
           {isEditing ? 'حفظ المادة' : 'إضافة المادة'}
         </button>
       </div>
+
+      {/* Standard Delete Confirmation Modal */}
+      {isEditing && initialData?.id && (
+        <DeleteConfirmModal
+          isOpen={isDeleteModalOpen}
+          title={`حذف المادة: ${initialData.nameAr}`}
+          warningMessage={`هل أنت متأكد من رغبتك في حذف مادة (${initialData.nameAr})؟ — لا يمكن التراجع عن هذا الإجراء وسيتم إزالتها نهائياً.`}
+          confirmLabel="حذف المادة"
+          onConfirm={() => {
+            if (initialData.id && onDelete) {
+              onDelete(initialData.id);
+            }
+            setIsDeleteModalOpen(false);
+          }}
+          onCancel={() => setIsDeleteModalOpen(false)}
+        />
+      )}
     </div>
   );
 };
