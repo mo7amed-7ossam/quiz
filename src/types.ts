@@ -45,6 +45,20 @@ export interface CountryItem {
   status: 'نشط' | 'قريباً' | 'معطل';
 }
 
+export interface SubjectItem {
+  id: string;
+  nameAr: string;
+  nameEn: string;
+  unitsCount: number;
+  iconBgColor: string;
+  iconColorName?: string;
+  emoji?: string;
+  iconType?: 'english' | 'arabic' | 'science' | 'math' | 'social' | 'islamic' | 'art' | 'tech' | 'custom';
+  status: boolean;
+  countryCode: string;
+  gradeId: string;
+}
+
 export interface QuestionItem {
   id: string;
   question: string;

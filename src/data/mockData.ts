@@ -1,4 +1,4 @@
-import { StatItem, ActivityItem, ReviewItem, ChartDataPoint, QuestionItem } from '../types';
+import { StatItem, ActivityItem, ReviewItem, ChartDataPoint, QuestionItem, SubjectItem } from '../types';
 
 export const statsData: StatItem[] = [
   {
@@ -208,4 +208,86 @@ export const initialQuestionsData: QuestionItem[] = [
     correctAnswer: 'صح',
   },
 ];
+
+export const initialSubjectsData: SubjectItem[] = [
+  {
+    id: 'subj-1',
+    nameAr: 'لغة إنجليزية',
+    nameEn: 'English',
+    unitsCount: 7,
+    iconBgColor: '#53389e',
+    iconColorName: 'Purple',
+    emoji: '🌐',
+    iconType: 'english',
+    status: true,
+    countryCode: 'SA',
+    gradeId: 'السادس الابتدائي',
+  },
+  {
+    id: 'subj-2',
+    nameAr: 'لغة عربية',
+    nameEn: 'Arabic',
+    unitsCount: 9,
+    iconBgColor: '#ba5139',
+    iconColorName: 'Brick',
+    emoji: '📖',
+    iconType: 'arabic',
+    status: true,
+    countryCode: 'SA',
+    gradeId: 'السادس الابتدائي',
+  },
+  {
+    id: 'subj-3',
+    nameAr: 'علوم',
+    nameEn: 'Science',
+    unitsCount: 6,
+    iconBgColor: '#48877b',
+    iconColorName: 'Teal',
+    emoji: '🔬',
+    iconType: 'science',
+    status: true,
+    countryCode: 'SA',
+    gradeId: 'السادس الابتدائي',
+  },
+  {
+    id: 'subj-4',
+    nameAr: 'رياضيات',
+    nameEn: 'Mathematics',
+    unitsCount: 8,
+    iconBgColor: '#19223c',
+    iconColorName: 'Navy',
+    emoji: '📘',
+    iconType: 'math',
+    status: true,
+    countryCode: 'SA',
+    gradeId: 'السادس الابتدائي',
+  },
+  {
+    id: 'subj-5',
+    nameAr: 'دراسات اجتماعية',
+    nameEn: 'Social Studies',
+    unitsCount: 6,
+    iconBgColor: '#4b556b',
+    iconColorName: 'Slate',
+    emoji: '🗺️',
+    iconType: 'social',
+    status: true,
+    countryCode: 'SA',
+    gradeId: 'السادس الابتدائي',
+  },
+  {
+    id: 'subj-6',
+    nameAr: 'تربية إسلامية',
+    nameEn: 'Islamic Studies',
+    unitsCount: 5,
+    iconBgColor: '#d99b26',
+    iconColorName: 'Gold',
+    emoji: '🕌',
+    iconType: 'islamic',
+    status: true,
+    countryCode: 'SA',
+    gradeId: 'السادس الابتدائي',
+  },
+];
+
 

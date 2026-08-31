@@ -9,6 +9,7 @@ import { ReviewModal } from './components/ReviewModal';
 import { LoginScreen } from './components/LoginScreen';
 import { QuestionBankView, QuestionBankFormState } from './components/QuestionBankView';
 import { CountriesView } from './components/CountriesView';
+import { SubjectsView } from './components/SubjectsView';
 import {
   statsData,
   activitiesData,
@@ -78,7 +79,7 @@ const TAB_GROUPS: Record<string, string> = {
 
 export default function App() {
   const [currentView, setCurrentView] = useState<'login' | 'dashboard'>('dashboard');
-  const [activeTab, setActiveTab] = useState('countries');
+  const [activeTab, setActiveTab] = useState('subjects');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [reviewItems, setReviewItems] = useState<ReviewItem[]>(initialReviewItems);
@@ -89,6 +90,12 @@ export default function App() {
     isForm: boolean;
     isEditing: boolean;
     countryName?: string;
+    onBack: () => void;
+  } | null>(null);
+  const [subjectsFormState, setSubjectsFormState] = useState<{
+    isForm: boolean;
+    isEditing: boolean;
+    subjectName?: string;
     onBack: () => void;
   } | null>(null);
 
@@ -184,6 +191,14 @@ export default function App() {
       );
     }
 
+    if (activeTab === 'subjects') {
+      return (
+        <main className="py-6">
+          <SubjectsView onFormStateChange={setSubjectsFormState} />
+        </main>
+      );
+    }
+
     if (activeTab === 'question_bank') {
       return (
         <main className="py-6">
@@ -263,6 +278,18 @@ export default function App() {
       { label: actionLabel },
     ];
     onHeaderBack = countriesFormState.onBack;
+  } else if (activeTab === 'subjects' && subjectsFormState?.isForm) {
+    const subTitle = subjectsFormState.isEditing
+      ? `بيانات المادة: ${subjectsFormState.subjectName || 'المادة الدراسية'}`
+      : 'إضافة مادة جديدة';
+    const actionLabel = subjectsFormState.isEditing ? 'تعديل' : 'إضافة';
+    customTitle = subTitle;
+    customBreadcrumbs = [
+      { label: 'الإعداد التأسيسي' },
+      { label: 'المواد الدراسية', onClick: subjectsFormState.onBack },
+      { label: actionLabel },
+    ];
+    onHeaderBack = subjectsFormState.onBack;
   } else if (activeTab !== 'dashboard') {
     // Top-level sub-view (e.g., countries, classes, question_bank list)
     const groupName = TAB_GROUPS[activeTab] || 'الإعداد التأسيسي';
@@ -283,6 +310,7 @@ export default function App() {
           setActiveTab(tab);
           setQuestionBankFormState(null);
           setCountriesFormState(null);
+          setSubjectsFormState(null);
         }}
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
