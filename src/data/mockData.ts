@@ -1,4 +1,4 @@
-import { StatItem, ActivityItem, ReviewItem, ChartDataPoint, QuestionItem, SubjectItem, AcademicCalendarItem, ParentUser, StudentUser } from '../types';
+import { StatItem, ActivityItem, ReviewItem, ChartDataPoint, QuestionItem, SubjectItem, AcademicCalendarItem, ParentUser, StudentUser, SubscriptionPlan, PromoCode } from '../types';
 
 export const statsData: StatItem[] = [
   {
@@ -553,6 +553,73 @@ export const initialStudentsData: StudentUser[] = [
     points: 90,
   },
 ];
+
+export const initialSubscriptionPlans: SubscriptionPlan[] = [
+  {
+    id: 'plan-basic',
+    name: 'أساسية',
+    price: 29,
+    currency: 'ر.س',
+    billingPeriod: 'شهر',
+    description: 'مادة واحدة، تقارير أسبوعية',
+    subscribersCount: 1240,
+    features: ['مادة دراسية واحدة', 'تقارير أسبوعية لأولياء الأمور', 'حل تمارين وبنك أسئلة مصغر'],
+    status: 'نشط',
+  },
+  {
+    id: 'plan-advanced',
+    name: 'متقدمة',
+    price: 59,
+    currency: 'ر.س',
+    billingPeriod: 'شهر',
+    description: 'كل المواد، تقارير يومية، مساعد ذكي',
+    subscribersCount: 3680,
+    features: ['جميع المواد الدراسية', 'تقارير تقدم يومية ومباشرة', 'المساعد التعليمي الذكي', 'اختبارات تقييمية غير محدودة'],
+    status: 'نشط',
+  },
+  {
+    id: 'plan-family',
+    name: 'عائلية',
+    price: 99,
+    currency: 'ر.س',
+    billingPeriod: 'شهر',
+    description: 'حتى 4 أبناء، كل المزايا',
+    subscribersCount: 1020,
+    features: ['حساب عائلي حتى 4 أبناء', 'جميع المواد لجميع المراحل', 'تقارير مجمعة وتنبيهات ذكية', 'دعم فني مخصص وأولوية'],
+    status: 'نشط',
+  },
+];
+
+export const initialPromoCodes: PromoCode[] = [
+  {
+    id: 'promo-1',
+    code: 'WELCOME20',
+    discountPercentage: 20,
+    expiryDate: '2026-09-01',
+    usageCount: 412,
+    maxUsage: 1000,
+    status: 'نشط',
+  },
+  {
+    id: 'promo-2',
+    code: 'RAMADAN30',
+    discountPercentage: 30,
+    expiryDate: '2026-03-15',
+    usageCount: 980,
+    maxUsage: 1000,
+    status: 'منتهٍ',
+  },
+  {
+    id: 'promo-3',
+    code: 'BACK2SCHOOL',
+    discountPercentage: 25,
+    expiryDate: '2026-10-30',
+    usageCount: 185,
+    maxUsage: 500,
+    status: 'نشط',
+  },
+];
+
 
 
 

@@ -12,6 +12,7 @@ import { CountriesView } from './components/CountriesView';
 import { SubjectsView } from './components/SubjectsView';
 import { AcademicCalendarView } from './components/AcademicCalendarView';
 import { UsersView } from './components/UsersView';
+import { SubscriptionsView } from './components/SubscriptionsView';
 import {
   statsData,
   activitiesData,
@@ -81,7 +82,7 @@ const TAB_GROUPS: Record<string, string> = {
 
 export default function App() {
   const [currentView, setCurrentView] = useState<'login' | 'dashboard'>('dashboard');
-  const [activeTab, setActiveTab] = useState('users');
+  const [activeTab, setActiveTab] = useState('subscriptions');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [reviewItems, setReviewItems] = useState<ReviewItem[]>(initialReviewItems);
@@ -224,6 +225,14 @@ export default function App() {
       return (
         <main className="py-6">
           <UsersView onFormStateChange={setUsersFormState} />
+        </main>
+      );
+    }
+
+    if (activeTab === 'subscriptions') {
+      return (
+        <main className="py-6">
+          <SubscriptionsView />
         </main>
       );
     }

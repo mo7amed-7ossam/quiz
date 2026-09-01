@@ -138,3 +138,25 @@ export interface StudentUser {
   points?: number;
 }
 
+export interface SubscriptionPlan {
+  id: string;
+  name: string;
+  price: number;
+  currency: string;
+  billingPeriod: string; // e.g. 'شهر' or 'سنة'
+  description: string;
+  subscribersCount: number;
+  features?: string[];
+  status?: 'نشط' | 'معطل';
+}
+
+export interface PromoCode {
+  id: string;
+  code: string;
+  discountPercentage: number;
+  expiryDate: string; // YYYY-MM-DD
+  usageCount: number;
+  maxUsage?: number;
+  status: 'نشط' | 'منتهٍ' | 'معطل';
+}
+
