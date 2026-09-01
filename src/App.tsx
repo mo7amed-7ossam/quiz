@@ -11,6 +11,7 @@ import { QuestionBankView, QuestionBankFormState } from './components/QuestionBa
 import { CountriesView } from './components/CountriesView';
 import { SubjectsView } from './components/SubjectsView';
 import { AcademicCalendarView } from './components/AcademicCalendarView';
+import { UsersView } from './components/UsersView';
 import {
   statsData,
   activitiesData,
@@ -80,7 +81,7 @@ const TAB_GROUPS: Record<string, string> = {
 
 export default function App() {
   const [currentView, setCurrentView] = useState<'login' | 'dashboard'>('dashboard');
-  const [activeTab, setActiveTab] = useState('calendar');
+  const [activeTab, setActiveTab] = useState('users');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [reviewItems, setReviewItems] = useState<ReviewItem[]>(initialReviewItems);
@@ -103,6 +104,11 @@ export default function App() {
     isForm: boolean;
     isEditing: boolean;
     calendarYear?: string;
+    onBack: () => void;
+  } | null>(null);
+  const [usersFormState, setUsersFormState] = useState<{
+    isDetails: boolean;
+    userName?: string;
     onBack: () => void;
   } | null>(null);
 
@@ -214,6 +220,14 @@ export default function App() {
       );
     }
 
+    if (activeTab === 'users') {
+      return (
+        <main className="py-6">
+          <UsersView onFormStateChange={setUsersFormState} />
+        </main>
+      );
+    }
+
     if (activeTab === 'question_bank') {
       return (
         <main className="py-6">
@@ -317,6 +331,14 @@ export default function App() {
       { label: actionLabel },
     ];
     onHeaderBack = calendarFormState.onBack;
+  } else if (activeTab === 'users' && usersFormState?.isDetails) {
+    const subTitle = `تفاصيل المستخدم: ${usersFormState.userName || ''}`;
+    customTitle = subTitle;
+    customBreadcrumbs = [
+      { label: 'المستخدمون', onClick: usersFormState.onBack },
+      { label: 'تفاصيل المستخدم' },
+    ];
+    onHeaderBack = usersFormState.onBack;
   } else if (activeTab !== 'dashboard') {
     // Top-level sub-view (e.g., countries, classes, question_bank list)
     const groupName = TAB_GROUPS[activeTab] || 'الإعداد التأسيسي';
@@ -339,6 +361,7 @@ export default function App() {
           setCountriesFormState(null);
           setSubjectsFormState(null);
           setCalendarFormState(null);
+          setUsersFormState(null);
         }}
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}

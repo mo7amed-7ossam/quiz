@@ -96,3 +96,45 @@ export interface QuestionItem {
   correctAnswer?: string;
 }
 
+export interface StudentChild {
+  id: string;
+  name: string;
+  grade: string;
+  isSubscribed: boolean;
+  avatarBgColor?: string;
+  initialLetter?: string;
+  registrationDate?: string;
+  status?: 'نشط' | 'معلّق';
+  points?: number;
+}
+
+export interface ParentUser {
+  id: string;
+  name: string;
+  phone: string;
+  email?: string;
+  registrationDate: string;
+  status: 'نشط' | 'معلّق';
+  childrenCount: number;
+  children: StudentChild[];
+  country?: string;
+  notes?: string;
+}
+
+export interface StudentUser {
+  id: string;
+  name: string;
+  phone: string;
+  email?: string;
+  registrationDate: string;
+  status: 'نشط' | 'معلّق';
+  grade: string;
+  parentName: string;
+  parentPhone: string;
+  isSubscribed: boolean;
+  avatarBgColor?: string;
+  initialLetter?: string;
+  country?: string;
+  points?: number;
+}
+
