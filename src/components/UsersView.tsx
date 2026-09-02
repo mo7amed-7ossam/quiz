@@ -19,6 +19,7 @@ import {
 import { ParentUser, StudentUser, StudentChild } from '../types';
 import { initialParentsData, initialStudentsData } from '../data/mockData';
 import { UserDetailsView } from './UserDetailsView';
+import { CustomSelect } from './CustomSelect';
 
 interface UsersViewProps {
   onFormStateChange?: (state: {
@@ -283,16 +284,16 @@ export const UsersView: React.FC<UsersViewProps> = ({ onFormStateChange }) => {
       {/* Top Bar: Pill Tabs (Right) & Search Box (Left) */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         {/* Pill Tabs (أولياء الأمور / الطلاب) */}
-        <div className="flex items-center gap-2 bg-[#f0f4f8] p-1.5 rounded-full shadow-2xs">
+        <div className="flex items-center gap-1.5 bg-[#f0f4f8] p-1.5 rounded-xl shadow-2xs">
           <button
             type="button"
             onClick={() => {
               setActiveUserType('parents');
               setSearchQuery('');
             }}
-            className={`px-6 py-2 rounded-full text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+            className={`px-5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer ${
               activeUserType === 'parents'
-                ? 'bg-[#48877b] text-white shadow-xs'
+                ? 'bg-[#16a085] text-white shadow-xs'
                 : 'text-slate-600 hover:text-slate-900 bg-transparent'
             }`}
           >
@@ -304,9 +305,9 @@ export const UsersView: React.FC<UsersViewProps> = ({ onFormStateChange }) => {
               setActiveUserType('students');
               setSearchQuery('');
             }}
-            className={`px-6 py-2 rounded-full text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+            className={`px-5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer ${
               activeUserType === 'students'
-                ? 'bg-[#48877b] text-white shadow-xs'
+                ? 'bg-[#16a085] text-white shadow-xs'
                 : 'text-slate-600 hover:text-slate-900 bg-transparent'
             }`}
           >
@@ -325,7 +326,7 @@ export const UsersView: React.FC<UsersViewProps> = ({ onFormStateChange }) => {
                 ? 'بحث بالاسم أو رقم الجوال...'
                 : 'بحث بالاسم، الصف، أو الجوال...'
             }
-            className="w-full bg-white border border-slate-200 focus:border-[#48877b] rounded-full pr-10 pl-9 py-2 text-xs sm:text-sm font-medium text-[#19223c] placeholder-slate-400 focus:outline-none shadow-2xs transition-colors"
+            className="w-full h-10 bg-white border border-slate-200 hover:border-slate-300 focus:border-[#16a085] focus:ring-2 focus:ring-[#16a085]/15 rounded-xl pr-10 pl-9 py-2 text-xs sm:text-sm font-medium text-[#19223c] placeholder-slate-400 focus:outline-none shadow-2xs transition-all"
           />
           <Search className="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           {searchQuery && (
@@ -379,17 +380,17 @@ export const UsersView: React.FC<UsersViewProps> = ({ onFormStateChange }) => {
                           </td>
 
                           {/* Phone */}
-                          <td className="py-4 px-4 text-center text-slate-600 font-sans whitespace-nowrap">
+                          <td className="py-4 px-4 text-center text-slate-600 whitespace-nowrap">
                             {parent.phone}
                           </td>
 
                           {/* Registration Date */}
-                          <td className="py-4 px-4 text-center text-slate-600 font-sans whitespace-nowrap">
+                          <td className="py-4 px-4 text-center text-slate-600 whitespace-nowrap">
                             {parent.registrationDate}
                           </td>
 
                           {/* Children Count */}
-                          <td className="py-4 px-4 text-center font-bold text-[#19223c] font-sans whitespace-nowrap">
+                          <td className="py-4 px-4 text-center font-bold text-[#19223c] whitespace-nowrap">
                             {parent.childrenCount}
                           </td>
 
@@ -451,12 +452,12 @@ export const UsersView: React.FC<UsersViewProps> = ({ onFormStateChange }) => {
                           </td>
 
                           {/* Phone */}
-                          <td className="py-4 px-4 text-center text-slate-600 font-sans whitespace-nowrap">
+                          <td className="py-4 px-4 text-center text-slate-600 whitespace-nowrap">
                             {student.phone}
                           </td>
 
                           {/* Registration Date */}
-                          <td className="py-4 px-4 text-center text-slate-600 font-sans whitespace-nowrap">
+                          <td className="py-4 px-4 text-center text-slate-600 whitespace-nowrap">
                             {student.registrationDate}
                           </td>
 
@@ -659,7 +660,7 @@ export const UsersView: React.FC<UsersViewProps> = ({ onFormStateChange }) => {
                   </div>
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-slate-500 font-medium">رقم التواصل:</span>
-                    <span className="font-bold text-[#19223c] font-sans">{selectedStudent.parentPhone}</span>
+                    <span className="font-bold text-[#19223c]">{selectedStudent.parentPhone}</span>
                   </div>
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-slate-500 font-medium">حالة الاشتراك:</span>
@@ -762,8 +763,8 @@ export const UsersView: React.FC<UsersViewProps> = ({ onFormStateChange }) => {
 
               {/* Full Name */}
               <div>
-                <label className="block text-xs sm:text-[13px] font-bold text-[#19223c] mb-1.5 text-right">
-                  الاسم الكامل <span className="text-[#e0564c]">*</span>
+                <label className="block text-xs font-bold text-[#19223c] mb-1.5 text-right">
+                  الاسم الكامل <span className="text-rose-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -771,15 +772,15 @@ export const UsersView: React.FC<UsersViewProps> = ({ onFormStateChange }) => {
                   value={formName}
                   onChange={(e) => setFormName(e.target.value)}
                   placeholder="مثال: خالد المطيري"
-                  className="w-full bg-white border border-[#48877b] focus:border-[#3d756a] rounded-2xl px-4 py-2.5 text-xs sm:text-sm font-bold text-[#19223c] focus:outline-none transition-colors text-right"
+                  className="w-full h-10 bg-white border border-slate-200 hover:border-slate-300 focus:border-[#16a085] focus:ring-2 focus:ring-[#16a085]/15 rounded-xl px-3.5 py-2 text-xs sm:text-sm font-medium text-[#19223c] placeholder:text-slate-400 focus:outline-none transition-all text-right"
                 />
               </div>
 
               {/* Phone and Email */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label className="block text-xs sm:text-[13px] font-bold text-[#19223c] mb-1.5 text-right">
-                    رقم الجوال <span className="text-[#e0564c]">*</span>
+                  <label className="block text-xs font-bold text-[#19223c] mb-1.5 text-right">
+                    رقم الجوال <span className="text-rose-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -787,12 +788,12 @@ export const UsersView: React.FC<UsersViewProps> = ({ onFormStateChange }) => {
                     value={formPhone}
                     onChange={(e) => setFormPhone(e.target.value)}
                     placeholder="05XXXXXXXX"
-                    className="w-full bg-white border border-slate-200 focus:border-[#48877b] rounded-2xl px-4 py-2.5 text-xs sm:text-sm font-bold text-[#19223c] focus:outline-none transition-colors text-right font-sans"
+                    className="w-full h-10 bg-white border border-slate-200 hover:border-slate-300 focus:border-[#16a085] focus:ring-2 focus:ring-[#16a085]/15 rounded-xl px-3.5 py-2 text-xs sm:text-sm font-medium text-[#19223c] placeholder:text-slate-400 focus:outline-none transition-all text-right"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs sm:text-[13px] font-bold text-[#19223c] mb-1.5 text-right">
+                  <label className="block text-xs font-bold text-[#19223c] mb-1.5 text-right">
                     البريد الإلكتروني
                   </label>
                   <input
@@ -800,38 +801,37 @@ export const UsersView: React.FC<UsersViewProps> = ({ onFormStateChange }) => {
                     value={formEmail}
                     onChange={(e) => setFormEmail(e.target.value)}
                     placeholder="user@example.com"
-                    className="w-full bg-white border border-slate-200 focus:border-[#48877b] rounded-2xl px-4 py-2.5 text-xs sm:text-sm font-bold text-[#19223c] focus:outline-none transition-colors text-right font-sans"
+                    className="w-full h-10 bg-white border border-slate-200 hover:border-slate-300 focus:border-[#16a085] focus:ring-2 focus:ring-[#16a085]/15 rounded-xl px-3.5 py-2 text-xs sm:text-sm font-medium text-[#19223c] placeholder:text-slate-400 focus:outline-none transition-all text-right"
                   />
                 </div>
               </div>
 
               {/* Student specific fields */}
               {formUserType === 'student' && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
                   <div>
-                    <label className="block text-xs sm:text-[13px] font-bold text-[#19223c] mb-1.5 text-right">
-                      الصف الدراسي <span className="text-[#e0564c]">*</span>
-                    </label>
-                    <select
+                    <CustomSelect
+                      label="الصف الدراسي"
+                      required
                       value={formGrade}
-                      onChange={(e) => setFormGrade(e.target.value)}
-                      className="w-full bg-white border border-slate-200 focus:border-[#48877b] rounded-2xl px-4 py-2.5 text-xs sm:text-sm font-bold text-[#19223c] focus:outline-none transition-colors text-right"
-                    >
-                      <option value="الأول ابتدائي">الأول ابتدائي</option>
-                      <option value="الثاني ابتدائي">الثاني ابتدائي</option>
-                      <option value="الثالث ابتدائي">الثالث ابتدائي</option>
-                      <option value="الرابع ابتدائي">الرابع ابتدائي</option>
-                      <option value="الخامس ابتدائي">الخامس ابتدائي</option>
-                      <option value="السادس ابتدائي">السادس ابتدائي</option>
-                      <option value="الأول متوسط">الأول متوسط</option>
-                      <option value="الثاني متوسط">الثاني متوسط</option>
-                      <option value="الثالث متوسط">الثالث متوسط</option>
-                      <option value="الأول ثانوي">الأول ثانوي</option>
-                    </select>
+                      onChange={(val) => setFormGrade(val)}
+                      options={[
+                        'الأول ابتدائي',
+                        'الثاني ابتدائي',
+                        'الثالث ابتدائي',
+                        'الرابع ابتدائي',
+                        'الخامس ابتدائي',
+                        'السادس ابتدائي',
+                        'الأول متوسط',
+                        'الثاني متوسط',
+                        'الثالث متوسط',
+                        'الأول ثانوي',
+                      ]}
+                    />
                   </div>
 
                   <div>
-                    <label className="block text-xs sm:text-[13px] font-bold text-[#19223c] mb-1.5 text-right">
+                    <label className="block text-xs font-bold text-[#19223c] mb-1.5 text-right">
                       اسم ولي الأمر
                     </label>
                     <input
@@ -839,7 +839,7 @@ export const UsersView: React.FC<UsersViewProps> = ({ onFormStateChange }) => {
                       value={formParentName}
                       onChange={(e) => setFormParentName(e.target.value)}
                       placeholder="اسم ولي الأمر"
-                      className="w-full bg-white border border-slate-200 focus:border-[#48877b] rounded-2xl px-4 py-2.5 text-xs sm:text-sm font-bold text-[#19223c] focus:outline-none transition-colors text-right"
+                      className="w-full h-10 bg-white border border-slate-200 hover:border-slate-300 focus:border-[#16a085] focus:ring-2 focus:ring-[#16a085]/15 rounded-xl px-3.5 py-2 text-xs sm:text-sm font-medium text-[#19223c] placeholder:text-slate-400 focus:outline-none transition-all text-right"
                     />
                   </div>
                 </div>
@@ -847,7 +847,7 @@ export const UsersView: React.FC<UsersViewProps> = ({ onFormStateChange }) => {
 
               {/* Status Selector */}
               <div>
-                <label className="block text-xs sm:text-[13px] font-bold text-[#19223c] mb-1.5 text-right">
+                <label className="block text-xs font-bold text-[#19223c] mb-1.5 text-right">
                   حالة الحساب
                 </label>
                 <div className="flex items-center gap-4 pt-1">
@@ -858,7 +858,7 @@ export const UsersView: React.FC<UsersViewProps> = ({ onFormStateChange }) => {
                       value="نشط"
                       checked={formStatus === 'نشط'}
                       onChange={() => setFormStatus('نشط')}
-                      className="text-[#48877b] focus:ring-[#48877b]"
+                      className="text-[#16a085] focus:ring-[#16a085]"
                     />
                     <span className="text-xs sm:text-sm font-bold text-[#19223c]">نشط</span>
                   </label>
@@ -869,7 +869,7 @@ export const UsersView: React.FC<UsersViewProps> = ({ onFormStateChange }) => {
                       value="معلّق"
                       checked={formStatus === 'معلّق'}
                       onChange={() => setFormStatus('معلّق')}
-                      className="text-[#e0564c] focus:ring-[#e0564c]"
+                      className="text-rose-600 focus:ring-rose-500"
                     />
                     <span className="text-xs sm:text-sm font-bold text-[#19223c]">معلّق</span>
                   </label>
@@ -877,17 +877,17 @@ export const UsersView: React.FC<UsersViewProps> = ({ onFormStateChange }) => {
               </div>
 
               {/* Modal Actions */}
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
+              <div className="flex items-center justify-end gap-2.5 pt-4 border-t border-slate-100">
                 <button
                   type="button"
                   onClick={() => setIsAddUserModalOpen(false)}
-                  className="px-6 py-2.5 rounded-xl border border-[#19223c] bg-white text-[#19223c] font-bold text-xs sm:text-sm hover:bg-slate-50 transition-colors cursor-pointer"
+                  className="px-5 py-2 sm:px-6 sm:py-2.5 rounded-xl border border-slate-200 hover:border-slate-300 bg-white text-[#19223c] font-bold text-xs sm:text-sm hover:bg-slate-50 transition-all cursor-pointer"
                 >
                   إلغاء
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-[#19223c] hover:bg-[#253254] text-white font-bold text-xs sm:text-sm transition-all shadow-xs cursor-pointer"
+                  className="px-5 py-2 sm:px-6 sm:py-2.5 rounded-xl bg-[#19223c] hover:bg-[#253254] active:scale-[0.98] text-white font-bold text-xs sm:text-sm transition-all shadow-xs cursor-pointer"
                 >
                   حفظ المستخدم
                 </button>
@@ -941,7 +941,7 @@ export const UsersView: React.FC<UsersViewProps> = ({ onFormStateChange }) => {
                     <h4 className="text-base font-bold text-[#19223c]">
                       {selectedParent.name}
                     </h4>
-                    <p className="text-xs text-slate-600 font-sans mt-0.5">
+                    <p className="text-xs text-slate-600 mt-0.5">
                       {selectedParent.phone} • {selectedParent.email || 'لا يوجد بريد إلكتروني'}
                     </p>
                   </div>
@@ -960,11 +960,11 @@ export const UsersView: React.FC<UsersViewProps> = ({ onFormStateChange }) => {
                 <div className="grid grid-cols-2 gap-3 text-xs">
                   <div className="bg-slate-50 p-3 rounded-xl">
                     <span className="text-slate-500 block mb-1">تاريخ الانضمام</span>
-                    <span className="font-bold text-[#19223c] font-sans">{selectedParent.registrationDate}</span>
+                    <span className="font-bold text-[#19223c]">{selectedParent.registrationDate}</span>
                   </div>
                   <div className="bg-slate-50 p-3 rounded-xl">
                     <span className="text-slate-500 block mb-1">عدد الأبناء المسجلين</span>
-                    <span className="font-bold text-[#19223c] font-sans">{selectedParent.childrenCount}</span>
+                    <span className="font-bold text-[#19223c]">{selectedParent.childrenCount}</span>
                   </div>
                 </div>
 
@@ -1018,7 +1018,7 @@ export const UsersView: React.FC<UsersViewProps> = ({ onFormStateChange }) => {
                     <h4 className="text-base font-bold text-[#19223c]">
                       {selectedStudent.name}
                     </h4>
-                    <p className="text-xs text-slate-600 font-sans mt-0.5">
+                    <p className="text-xs text-slate-600 mt-0.5">
                       {selectedStudent.phone} • {selectedStudent.grade}
                     </p>
                   </div>
@@ -1041,11 +1041,11 @@ export const UsersView: React.FC<UsersViewProps> = ({ onFormStateChange }) => {
                   </div>
                   <div className="bg-slate-50 p-3 rounded-xl">
                     <span className="text-slate-500 block mb-1">تاريخ التسجيل</span>
-                    <span className="font-bold text-[#19223c] font-sans">{selectedStudent.registrationDate}</span>
+                    <span className="font-bold text-[#19223c]">{selectedStudent.registrationDate}</span>
                   </div>
                   <div className="bg-slate-50 p-3 rounded-xl">
                     <span className="text-slate-500 block mb-1">النقاط والمكافآت</span>
-                    <span className="font-bold text-[#48877b] font-sans">{selectedStudent.points || 0} نقطة</span>
+                    <span className="font-bold text-[#48877b]">{selectedStudent.points || 0} نقطة</span>
                   </div>
                   <div className="bg-slate-50 p-3 rounded-xl">
                     <span className="text-slate-500 block mb-1">حالة الاشتراك</span>

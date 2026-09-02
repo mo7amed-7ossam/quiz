@@ -251,7 +251,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({
                       className="w-full py-3 px-4 text-slate-800 text-sm font-medium outline-hidden placeholder:text-slate-400 placeholder:text-right"
                     />
                     <div className="flex items-center gap-2 px-3 py-3 bg-slate-50/70 border-r border-slate-100 text-xs font-bold text-slate-600 shrink-0">
-                      <span className="text-[11px] font-mono text-slate-500">+SA 966</span>
+                      <span className="text-[11px] text-slate-500">+SA 966</span>
                     </div>
                   </div>
                   {errorMsg && (
@@ -297,7 +297,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({
                 </h2>
                 <p className="text-xs text-slate-500 mt-1">
                   تم إرسال الرمز المكون من 4 أرقام إلى الرقم{' '}
-                  <strong className="text-slate-800 font-mono" dir="ltr">
+                  <strong className="text-slate-800" dir="ltr">
                     +966 {phoneNumber || '50 123 4567'}
                   </strong>
                 </p>
@@ -314,7 +314,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({
                       maxLength={1}
                       value={otpCode[idx]}
                       onChange={(e) => handleOtpChange(idx, e.target.value)}
-                      className="w-14 h-14 text-center text-xl font-bold font-mono rounded-xl border border-slate-200 focus:border-[#48877b] focus:ring-2 focus:ring-[#48877b]/20 outline-hidden bg-slate-50/60 focus:bg-white transition-all shadow-2xs"
+                      className="w-14 h-14 text-center text-xl font-bold rounded-xl border border-slate-200 focus:border-[#48877b] focus:ring-2 focus:ring-[#48877b]/20 outline-hidden bg-slate-50/60 focus:bg-white transition-all shadow-2xs"
                     />
                   ))}
                 </div>

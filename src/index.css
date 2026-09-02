@@ -1,12 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  --font-cairo: "Cairo", "Tajawal", system-ui, sans-serif;
-  --font-tajawal: "Tajawal", "Cairo", system-ui, sans-serif;
+  --font-sans: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-cairo: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+html, body, #root, *, *::before, *::after, input, button, select, textarea, span, p, h1, h2, h3, h4, h5, h6, table, th, td {
+  font-family: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
 }
 
 body {
-  font-family: var(--font-cairo);
   background-color: #f1f5f9;
   direction: rtl;
 }

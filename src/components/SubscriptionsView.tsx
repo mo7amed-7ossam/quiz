@@ -155,52 +155,52 @@ export const SubscriptionsView: React.FC = () => {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {/* Metric 1: مشتركون نشطون */}
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-100 flex flex-col items-center justify-center text-center space-y-1.5 hover:shadow-sm transition-shadow">
-          <span className="text-xl sm:text-2xl font-bold text-[#19223c] font-sans">
+          <span className="text-xl sm:text-2xl font-bold text-[#19223c]">
             5,940
           </span>
           <span className="text-xs text-slate-500 font-medium">
             مشتركون نشطون
           </span>
-          <span className="bg-[#eaf6f4] text-[#1b7a69] text-[11px] font-bold px-2.5 py-0.5 rounded-full inline-flex items-center gap-0.5 font-sans">
+          <span className="bg-[#eaf6f4] text-[#1b7a69] text-[11px] font-bold px-2.5 py-0.5 rounded-full inline-flex items-center gap-0.5">
             ▲ 9%
           </span>
         </div>
 
         {/* Metric 2: الإيراد الشهري */}
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-100 flex flex-col items-center justify-center text-center space-y-1.5 hover:shadow-sm transition-shadow">
-          <span className="text-xl sm:text-2xl font-bold text-[#19223c] font-sans">
+          <span className="text-xl sm:text-2xl font-bold text-[#19223c]">
             184,200 <span className="text-xs font-semibold">ر.س</span>
           </span>
           <span className="text-xs text-slate-500 font-medium">
             الإيراد الشهري
           </span>
-          <span className="bg-[#eaf6f4] text-[#1b7a69] text-[11px] font-bold px-2.5 py-0.5 rounded-full inline-flex items-center gap-0.5 font-sans">
+          <span className="bg-[#eaf6f4] text-[#1b7a69] text-[11px] font-bold px-2.5 py-0.5 rounded-full inline-flex items-center gap-0.5">
             ▲ 12%
           </span>
         </div>
 
         {/* Metric 3: معدل التجديد */}
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-100 flex flex-col items-center justify-center text-center space-y-1.5 hover:shadow-sm transition-shadow">
-          <span className="text-xl sm:text-2xl font-bold text-[#19223c] font-sans">
+          <span className="text-xl sm:text-2xl font-bold text-[#19223c]">
             91%
           </span>
           <span className="text-xs text-slate-500 font-medium">
             معدل التجديد
           </span>
-          <span className="bg-[#eaf6f4] text-[#1b7a69] text-[11px] font-bold px-2.5 py-0.5 rounded-full inline-flex items-center gap-0.5 font-sans">
+          <span className="bg-[#eaf6f4] text-[#1b7a69] text-[11px] font-bold px-2.5 py-0.5 rounded-full inline-flex items-center gap-0.5">
             ▲ 2%
           </span>
         </div>
 
         {/* Metric 4: معدل الإلغاء */}
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-100 flex flex-col items-center justify-center text-center space-y-1.5 hover:shadow-sm transition-shadow">
-          <span className="text-xl sm:text-2xl font-bold text-[#19223c] font-sans">
+          <span className="text-xl sm:text-2xl font-bold text-[#19223c]">
             3.4%
           </span>
           <span className="text-xs text-slate-500 font-medium">
             معدل الإلغاء
           </span>
-          <span className="bg-[#fde8e5] text-[#d04b36] text-[11px] font-bold px-2.5 py-0.5 rounded-full inline-flex items-center gap-0.5 font-sans">
+          <span className="bg-[#fde8e5] text-[#d04b36] text-[11px] font-bold px-2.5 py-0.5 rounded-full inline-flex items-center gap-0.5">
             ▼ 0.5%
           </span>
         </div>
@@ -230,7 +230,7 @@ export const SubscriptionsView: React.FC = () => {
 
               {/* Price */}
               <div className="flex items-baseline gap-1.5 mt-3.5">
-                <span className="text-2xl sm:text-3xl font-bold text-[#19223c] font-sans">
+                <span className="text-2xl sm:text-3xl font-bold text-[#19223c]">
                   {plan.price}
                 </span>
                 <span className="text-xs font-semibold text-slate-500">
@@ -246,7 +246,7 @@ export const SubscriptionsView: React.FC = () => {
 
             {/* Subscribers Count */}
             <div className="mt-4 pt-2.5 border-t border-slate-50">
-              <p className="text-xs font-bold text-[#169b81] font-sans">
+              <p className="text-xs font-bold text-[#169b81]">
                 {plan.subscribersCount.toLocaleString('en-US')} مشترك
               </p>
             </div>
@@ -291,22 +291,22 @@ export const SubscriptionsView: React.FC = () => {
                   className="hover:bg-slate-50/70 transition-colors group"
                 >
                   {/* Code */}
-                  <td className="py-3 px-3 font-sans font-bold text-[#19223c]">
+                  <td className="py-3 px-3 font-bold text-[#19223c]">
                     {promo.code}
                   </td>
 
                   {/* Percentage */}
-                  <td className="py-3 px-3 text-center font-sans font-bold text-slate-700">
+                  <td className="py-3 px-3 text-center font-bold text-slate-700">
                     {promo.discountPercentage}%
                   </td>
 
                   {/* Expiration */}
-                  <td className="py-3 px-3 text-center font-sans font-medium text-slate-500">
+                  <td className="py-3 px-3 text-center font-medium text-slate-500">
                     {promo.expiryDate}
                   </td>
 
                   {/* Usage count */}
-                  <td className="py-3 px-3 text-center font-sans font-medium text-slate-500">
+                  <td className="py-3 px-3 text-center font-medium text-slate-500">
                     {promo.usageCount}
                   </td>
 
@@ -391,7 +391,7 @@ export const SubscriptionsView: React.FC = () => {
                   required
                   value={planFormPrice}
                   onChange={(e) => setPlanFormPrice(Number(e.target.value))}
-                  className="w-full bg-white border border-[#16a085] focus:border-[#138871] focus:ring-1 focus:ring-[#16a085] rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-sans font-bold text-[#19223c] focus:outline-none transition-all"
+                  className="w-full bg-white border border-[#16a085] focus:border-[#138871] focus:ring-1 focus:ring-[#16a085] rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-[#19223c] focus:outline-none transition-all"
                 />
               </div>
 
@@ -497,7 +497,7 @@ export const SubscriptionsView: React.FC = () => {
                       ? setNewPromoCode(e.target.value.toUpperCase())
                       : setEditPromoCodeStr(e.target.value.toUpperCase())
                   }
-                  className="w-full bg-white border border-[#16a085] focus:border-[#138871] focus:ring-1 focus:ring-[#16a085] rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-sans font-bold text-[#19223c] focus:outline-none transition-all placeholder:text-slate-400 placeholder:font-normal uppercase"
+                  className="w-full bg-white border border-[#16a085] focus:border-[#138871] focus:ring-1 focus:ring-[#16a085] rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-[#19223c] focus:outline-none transition-all placeholder:text-slate-400 placeholder:font-normal uppercase"
                 />
               </div>
 
@@ -519,7 +519,7 @@ export const SubscriptionsView: React.FC = () => {
                         ? setNewPromoDiscount(Number(e.target.value))
                         : setEditPromoDiscount(Number(e.target.value))
                     }
-                    className="w-full bg-white border border-[#16a085] focus:border-[#138871] focus:ring-1 focus:ring-[#16a085] rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-sans font-bold text-[#19223c] focus:outline-none transition-all"
+                    className="w-full bg-white border border-[#16a085] focus:border-[#138871] focus:ring-1 focus:ring-[#16a085] rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-[#19223c] focus:outline-none transition-all"
                   />
                 </div>
 
@@ -537,7 +537,7 @@ export const SubscriptionsView: React.FC = () => {
                         ? setNewPromoExpiry(e.target.value)
                         : setEditPromoExpiry(e.target.value)
                     }
-                    className="w-full bg-white border border-[#16a085] focus:border-[#138871] focus:ring-1 focus:ring-[#16a085] rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-sans font-medium text-[#19223c] focus:outline-none transition-all"
+                    className="w-full bg-white border border-[#16a085] focus:border-[#138871] focus:ring-1 focus:ring-[#16a085] rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-medium text-[#19223c] focus:outline-none transition-all"
                   />
                 </div>
               </div>

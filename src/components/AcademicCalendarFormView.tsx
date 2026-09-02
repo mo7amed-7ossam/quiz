@@ -242,7 +242,7 @@ export const AcademicCalendarFormView: React.FC<AcademicCalendarFormViewProps> =
                     required
                     value={term1Start}
                     onChange={(e) => setTerm1Start(e.target.value)}
-                    className="w-full bg-white border border-[#48877b] focus:border-[#3d756a] rounded-xl px-4 py-2.5 text-xs sm:text-sm font-bold text-[#19223c] focus:outline-none transition-colors text-right font-sans"
+                    className="w-full bg-white border border-[#48877b] focus:border-[#3d756a] rounded-xl px-4 py-2.5 text-xs sm:text-sm font-bold text-[#19223c] focus:outline-none transition-colors text-right"
                   />
                 </div>
 
@@ -256,7 +256,7 @@ export const AcademicCalendarFormView: React.FC<AcademicCalendarFormViewProps> =
                     required
                     value={term1End}
                     onChange={(e) => setTerm1End(e.target.value)}
-                    className="w-full bg-white border border-[#48877b] focus:border-[#3d756a] rounded-xl px-4 py-2.5 text-xs sm:text-sm font-bold text-[#19223c] focus:outline-none transition-colors text-right font-sans"
+                    className="w-full bg-white border border-[#48877b] focus:border-[#3d756a] rounded-xl px-4 py-2.5 text-xs sm:text-sm font-bold text-[#19223c] focus:outline-none transition-colors text-right"
                   />
                 </div>
               </div>
@@ -279,7 +279,7 @@ export const AcademicCalendarFormView: React.FC<AcademicCalendarFormViewProps> =
                     required
                     value={term2Start}
                     onChange={(e) => setTerm2Start(e.target.value)}
-                    className="w-full bg-white border border-[#48877b] focus:border-[#3d756a] rounded-xl px-4 py-2.5 text-xs sm:text-sm font-bold text-[#19223c] focus:outline-none transition-colors text-right font-sans"
+                    className="w-full bg-white border border-[#48877b] focus:border-[#3d756a] rounded-xl px-4 py-2.5 text-xs sm:text-sm font-bold text-[#19223c] focus:outline-none transition-colors text-right"
                   />
                 </div>
 
@@ -293,7 +293,7 @@ export const AcademicCalendarFormView: React.FC<AcademicCalendarFormViewProps> =
                     required
                     value={term2End}
                     onChange={(e) => setTerm2End(e.target.value)}
-                    className="w-full bg-white border border-[#48877b] focus:border-[#3d756a] rounded-xl px-4 py-2.5 text-xs sm:text-sm font-bold text-[#19223c] focus:outline-none transition-colors text-right font-sans"
+                    className="w-full bg-white border border-[#48877b] focus:border-[#3d756a] rounded-xl px-4 py-2.5 text-xs sm:text-sm font-bold text-[#19223c] focus:outline-none transition-colors text-right"
                   />
                 </div>
               </div>
@@ -398,14 +398,14 @@ export const AcademicCalendarFormView: React.FC<AcademicCalendarFormViewProps> =
 
                       {/* From Date */}
                       <td className="py-3 px-2 text-center">
-                        <span className="text-xs sm:text-sm font-semibold text-slate-600 font-sans">
+                        <span className="text-xs sm:text-sm font-semibold text-slate-600">
                           {h.startDate}
                         </span>
                       </td>
 
                       {/* To Date */}
                       <td className="py-3 px-2 text-center">
-                        <span className="text-xs sm:text-sm font-semibold text-slate-600 font-sans">
+                        <span className="text-xs sm:text-sm font-semibold text-slate-600">
                           {h.endDate}
                         </span>
                       </td>
@@ -498,7 +498,7 @@ export const AcademicCalendarFormView: React.FC<AcademicCalendarFormViewProps> =
                     value={holidayStart}
                     onChange={(e) => setHolidayStart(e.target.value)}
                     placeholder="09-23"
-                    className="w-full bg-white border border-[#48877b] focus:border-[#3d756a] rounded-2xl px-4 py-3 text-xs sm:text-sm font-bold text-[#19223c] focus:outline-none transition-colors text-right font-sans"
+                    className="w-full bg-white border border-[#48877b] focus:border-[#3d756a] rounded-2xl px-4 py-3 text-xs sm:text-sm font-bold text-[#19223c] focus:outline-none transition-colors text-right"
                   />
                 </div>
 
@@ -512,7 +512,7 @@ export const AcademicCalendarFormView: React.FC<AcademicCalendarFormViewProps> =
                     value={holidayEnd}
                     onChange={(e) => setHolidayEnd(e.target.value)}
                     placeholder="09-23"
-                    className="w-full bg-white border border-[#48877b] focus:border-[#3d756a] rounded-2xl px-4 py-3 text-xs sm:text-sm font-bold text-[#19223c] focus:outline-none transition-colors text-right font-sans"
+                    className="w-full bg-white border border-[#48877b] focus:border-[#3d756a] rounded-2xl px-4 py-3 text-xs sm:text-sm font-bold text-[#19223c] focus:outline-none transition-colors text-right"
                   />
                 </div>
               </div>

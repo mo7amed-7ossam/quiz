@@ -76,7 +76,7 @@ export const UserDetailsView: React.FC<UserDetailsViewProps> = ({
               <p className="text-xs text-slate-500 font-medium mb-1.5">
                 تاريخ التسجيل
               </p>
-              <p className="text-sm sm:text-base font-bold text-[#19223c] font-sans">
+              <p className="text-sm sm:text-base font-bold text-[#19223c]">
                 {user.registrationDate}
               </p>
             </div>
@@ -88,7 +88,7 @@ export const UserDetailsView: React.FC<UserDetailsViewProps> = ({
               <p className="text-xs text-slate-500 font-medium mb-1.5">
                 رقم الجوال
               </p>
-              <p className="text-sm sm:text-base font-bold text-[#19223c] font-sans">
+              <p className="text-sm sm:text-base font-bold text-[#19223c]">
                 {user.phone}
               </p>
             </div>
@@ -97,7 +97,7 @@ export const UserDetailsView: React.FC<UserDetailsViewProps> = ({
               <p className="text-xs text-slate-500 font-medium mb-1.5">
                 {isParent ? 'عدد الأبناء المرتبطين' : 'الصف الدراسي'}
               </p>
-              <p className="text-sm sm:text-base font-bold text-[#19223c] font-sans">
+              <p className="text-sm sm:text-base font-bold text-[#19223c]">
                 {isParent ? parentUser?.childrenCount || 0 : studentUser?.grade || '-'}
               </p>
             </div>

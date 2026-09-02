@@ -200,35 +200,35 @@ export const AcademicCalendarView: React.FC<AcademicCalendarViewProps> = ({
                 >
                   {/* Academic Year */}
                   <td className="py-4 px-3 text-right">
-                    <span className="text-xs sm:text-sm font-black text-[#19223c] font-sans tracking-wide">
+                    <span className="text-xs sm:text-sm font-bold text-[#19223c] tracking-wide">
                       {cal.academicYear}
                     </span>
                   </td>
 
                   {/* Term 1 Start */}
                   <td className="py-4 px-3 text-center">
-                    <span className="text-xs sm:text-sm font-semibold text-slate-600 font-sans">
+                    <span className="text-xs sm:text-sm font-semibold text-slate-600">
                       {cal.term1Start}
                     </span>
                   </td>
 
                   {/* Term 1 End */}
                   <td className="py-4 px-3 text-center">
-                    <span className="text-xs sm:text-sm font-semibold text-slate-600 font-sans">
+                    <span className="text-xs sm:text-sm font-semibold text-slate-600">
                       {cal.term1End}
                     </span>
                   </td>
 
                   {/* Term 2 Start */}
                   <td className="py-4 px-3 text-center">
-                    <span className="text-xs sm:text-sm font-semibold text-slate-600 font-sans">
+                    <span className="text-xs sm:text-sm font-semibold text-slate-600">
                       {cal.term2Start}
                     </span>
                   </td>
 
                   {/* Term 2 End */}
                   <td className="py-4 px-3 text-center">
-                    <span className="text-xs sm:text-sm font-semibold text-slate-600 font-sans">
+                    <span className="text-xs sm:text-sm font-semibold text-slate-600">
                       {cal.term2End}
                     </span>
                   </td>

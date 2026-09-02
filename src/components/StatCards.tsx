@@ -39,7 +39,7 @@ export const StatCards: React.FC<StatCardsProps> = ({ stats }) => {
                 <span className="text-[10px] leading-none">
                   {isIncrease ? '▲' : '▼'}
                 </span>
-                <span dir="ltr" className="text-xs font-bold font-mono">
+                <span dir="ltr" className="text-xs font-bold">
                   {stat.change}
                 </span>
               </span>

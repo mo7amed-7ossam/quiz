@@ -375,7 +375,7 @@ export const SubjectsView: React.FC<SubjectsViewProps> = ({ onFormStateChange })
             </h4>
 
             {/* Subject English Name */}
-            <p className="text-xs sm:text-sm font-medium text-slate-500 mb-1.5 font-sans">
+            <p className="text-xs sm:text-sm font-medium text-slate-500 mb-1.5">
               {subject.nameEn}
             </p>
 
